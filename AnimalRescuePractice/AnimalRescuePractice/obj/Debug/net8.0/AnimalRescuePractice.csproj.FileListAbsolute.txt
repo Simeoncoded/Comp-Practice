@@ -1,0 +1,14 @@
+C:\Users\User\Desktop\CompPractice\AnimalRescuePractice\AnimalRescuePractice\bin\Debug\net8.0\AnimalRescuePractice.exe
+C:\Users\User\Desktop\CompPractice\AnimalRescuePractice\AnimalRescuePractice\bin\Debug\net8.0\AnimalRescuePractice.deps.json
+C:\Users\User\Desktop\CompPractice\AnimalRescuePractice\AnimalRescuePractice\bin\Debug\net8.0\AnimalRescuePractice.runtimeconfig.json
+C:\Users\User\Desktop\CompPractice\AnimalRescuePractice\AnimalRescuePractice\bin\Debug\net8.0\AnimalRescuePractice.dll
+C:\Users\User\Desktop\CompPractice\AnimalRescuePractice\AnimalRescuePractice\bin\Debug\net8.0\AnimalRescuePractice.pdb
+C:\Users\User\Desktop\CompPractice\AnimalRescuePractice\AnimalRescuePractice\obj\Debug\net8.0\AnimalRescuePractice.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Desktop\CompPractice\AnimalRescuePractice\AnimalRescuePractice\obj\Debug\net8.0\AnimalRescuePractice.AssemblyInfoInputs.cache
+C:\Users\User\Desktop\CompPractice\AnimalRescuePractice\AnimalRescuePractice\obj\Debug\net8.0\AnimalRescuePractice.AssemblyInfo.cs
+C:\Users\User\Desktop\CompPractice\AnimalRescuePractice\AnimalRescuePractice\obj\Debug\net8.0\AnimalRescuePractice.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\CompPractice\AnimalRescuePractice\AnimalRescuePractice\obj\Debug\net8.0\AnimalRescuePractice.dll
+C:\Users\User\Desktop\CompPractice\AnimalRescuePractice\AnimalRescuePractice\obj\Debug\net8.0\refint\AnimalRescuePractice.dll
+C:\Users\User\Desktop\CompPractice\AnimalRescuePractice\AnimalRescuePractice\obj\Debug\net8.0\AnimalRescuePractice.pdb
+C:\Users\User\Desktop\CompPractice\AnimalRescuePractice\AnimalRescuePractice\obj\Debug\net8.0\AnimalRescuePractice.genruntimeconfig.cache
+C:\Users\User\Desktop\CompPractice\AnimalRescuePractice\AnimalRescuePractice\obj\Debug\net8.0\ref\AnimalRescuePractice.dll
