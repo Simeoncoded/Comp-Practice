@@ -1,0 +1,7 @@
+C:\Users\User\Desktop\CompPractice\ClassPrac\ClassPrac\bin\Debug\ClassPrac.exe.config
+C:\Users\User\Desktop\CompPractice\ClassPrac\ClassPrac\bin\Debug\ClassPrac.exe
+C:\Users\User\Desktop\CompPractice\ClassPrac\ClassPrac\bin\Debug\ClassPrac.pdb
+C:\Users\User\Desktop\CompPractice\ClassPrac\ClassPrac\obj\Debug\ClassPrac.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\CompPractice\ClassPrac\ClassPrac\obj\Debug\ClassPrac.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\CompPractice\ClassPrac\ClassPrac\obj\Debug\ClassPrac.exe
+C:\Users\User\Desktop\CompPractice\ClassPrac\ClassPrac\obj\Debug\ClassPrac.pdb
