@@ -19,11 +19,54 @@ namespace ClassPrac
 
         static void AddAnimal()
         {
-            Animal animal = new Animal("00000001", "Dog", 'M', true, "Collie", "Brown",
-                                       new DateTime(2018, 5, 23), "Up to date", "Micro-chipped",
-                                       "MC12345678", 200);
+            Console.WriteLine("Enter Species (Dog, Cat, Bird, etc.): ");
+            string species = Console.ReadLine();
+
+            Console.WriteLine("Enter Gender (M/F): ");
+            char gender = Convert.ToChar(Console.ReadLine().ToUpper());
+
+            Console.WriteLine("Is Spayed (true/false): ");
+            bool isSpayed = Convert.ToBoolean(Console.ReadLine());
+
+            Console.WriteLine("Enter Breed: ");
+            string breed = Console.ReadLine();
+
+            Console.WriteLine("Enter Colour: ");
+            string colour = Console.ReadLine();
+
+            Console.WriteLine("Enter Birthday (yyyy-mm-dd): ");
+            DateTime birthday = DateTime.Parse(Console.ReadLine());
+
+            Console.WriteLine("Enter Vaccine Status (Up to date, Late, Unknown): ");
+            string vaccineStatus = Console.ReadLine();
+
+            Console.WriteLine("Enter Identification Type (Micro-chipped/Bar code): ");
+            string idType = Console.ReadLine();
+
+            Console.WriteLine("Enter Identification Number: ");
+            string idNo = Console.ReadLine();
+
+            double adoptionFee = CalculateAdoptionFee(birthday);
+
+            string newId = (animals.Count + 1).ToString("D8"); // Auto-generate padded 8-digit ID
+
+            Animal animal = new Animal(newId, species, gender, isSpayed, breed, colour, birthday,
+                                        vaccineStatus, idType, idNo, adoptionFee);
+
             animals.Add(animal);
-            AddAnimalToFile(animal); // Save to file too
+            AddAnimalToFile(animal);
+
+            Console.WriteLine("Animal added successfully!\n");
+        }
+
+        static double CalculateAdoptionFee(DateTime birthday)
+        {
+            int age = DateTime.Now.Year - birthday.Year;
+            if (birthday > DateTime.Now.AddYears(-age)) age--;
+
+            if (age < 1) return 300;
+            else if (age > 10) return 100;
+            else return 200;
         }
 
         static void DisplayAnimals()
