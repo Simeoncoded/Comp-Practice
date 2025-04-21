@@ -11,11 +11,42 @@ namespace ClassPrac
 
         static void Main(string[] args)
         {
-            AddAnimal(); // Add a sample animal
-            DisplayAnimals(); // Show all animals
+            bool exit = false;
 
-            Console.ReadLine();
+            while (!exit)
+            {
+                Console.WriteLine("\nHi — welcome to this animal app!");
+                Console.WriteLine("Press D to display all animals");
+                Console.WriteLine("Press N to add a new animal");
+                Console.WriteLine("Press Q to quit");
+                Console.Write("Your choice: ");
+
+                string choice = Console.ReadLine().ToUpper();
+
+                if (choice == "D")
+                {
+                    DisplayAnimals();
+                }
+                else if (choice == "N")
+                {
+                    AddAnimal();
+                }
+                else if (choice == "Q")
+                {
+                    exit = true;
+                    Console.WriteLine("Goodbye!");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid choice — try again.");
+                }
+            }
         }
+
+
+
+
+
 
         static void AddAnimal()
         {
@@ -69,13 +100,29 @@ namespace ClassPrac
             else return 200;
         }
 
+        //method to display all animals
         static void DisplayAnimals()
         {
-            foreach (var animal in animals)
+            if (File.Exists(filePath))
             {
-                Console.WriteLine($"{animal.ID} - {animal.Species} - {animal.Breed}");
+                string text = File.ReadAllText(filePath);
+
+                if (string.IsNullOrWhiteSpace(text))
+                {
+                    Console.WriteLine("No animals found.");
+                }
+                else
+                {
+                    Console.WriteLine("Animals in the system:\n");
+                    Console.WriteLine(text);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Animal file not found.");
             }
         }
+
 
         public static void AddAnimalToFile(Animal animal)
         {

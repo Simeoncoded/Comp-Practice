@@ -3,3 +3,5 @@
 00000001,Dog,M,True,Collie,Brown,5/23/2018,Up to date,Micro-chipped,MC12345678,200
 00000001,Dog,M,True,Collie,Brown,5/23/2018,Up to date,Micro-chipped,MC12345678,200
 00000001,Dog,M,True,Collie,Brown,5/23/2018,Up to date,Micro-chipped,MC12345678,200
+00000001,Dog,M,True,Chichi,blue,7/23/2006,Late,233ji233,323232,100
+00000001,Cat,M,True,Chichi,Black,8/23/2006,Late,343ijij43,34343,100
