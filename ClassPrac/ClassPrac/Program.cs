@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace ClassPrac
 {
@@ -50,45 +51,74 @@ namespace ClassPrac
 
         static void AddAnimal()
         {
-            Console.WriteLine("Enter Species (Dog, Cat, Bird, etc.): ");
-            string species = Console.ReadLine();
+            try
+            {
+                Console.WriteLine("Enter Species (Dog, Cat, Bird, etc.): ");
+                string species = Console.ReadLine();
 
-            Console.WriteLine("Enter Gender (M/F): ");
-            char gender = Convert.ToChar(Console.ReadLine().ToUpper());
+                Console.WriteLine("Enter Gender (M/F): ");
+                char gender = Convert.ToChar(Console.ReadLine().ToUpper());
 
-            Console.WriteLine("Is Spayed (true/false): ");
-            bool isSpayed = Convert.ToBoolean(Console.ReadLine());
+                Console.WriteLine("Is Spayed (true/false): ");
+                bool isSpayed = Convert.ToBoolean(Console.ReadLine());
 
-            Console.WriteLine("Enter Breed: ");
-            string breed = Console.ReadLine();
+                Console.WriteLine("Enter Breed: ");
+                string breed = Console.ReadLine();
 
-            Console.WriteLine("Enter Colour: ");
-            string colour = Console.ReadLine();
+                Console.WriteLine("Enter Colour: ");
+                string colour = Console.ReadLine();
 
-            Console.WriteLine("Enter Birthday (yyyy-mm-dd): ");
-            DateTime birthday = DateTime.Parse(Console.ReadLine());
+                Console.WriteLine("Enter Birthday (yyyy-mm-dd): ");
+                DateTime birthday = DateTime.Parse(Console.ReadLine());
 
-            Console.WriteLine("Enter Vaccine Status (Up to date, Late, Unknown): ");
-            string vaccineStatus = Console.ReadLine();
+                Console.WriteLine("Enter Vaccine Status (Up to date, Late, Unknown): ");
+                string vaccineStatus = Console.ReadLine();
 
-            Console.WriteLine("Enter Identification Type (Micro-chipped/Bar code): ");
-            string idType = Console.ReadLine();
+                Console.WriteLine("Enter Identification Type (Micro-chipped/Bar code): ");
+                string idType = Console.ReadLine();
 
-            Console.WriteLine("Enter Identification Number: ");
-            string idNo = Console.ReadLine();
+                Console.WriteLine("Enter Identification Number: ");
+                string idNo = Console.ReadLine();
 
-            double adoptionFee = CalculateAdoptionFee(birthday);
+                double adoptionFee = CalculateAdoptionFee(birthday);
 
-            string newId = (animals.Count + 1).ToString("D8"); // Auto-generate padded 8-digit ID
+                string newId = GetNextId(); // Auto-generate padded 8-digit ID
 
-            Animal animal = new Animal(newId, species, gender, isSpayed, breed, colour, birthday,
-                                        vaccineStatus, idType, idNo, adoptionFee);
+                Animal animal = new Animal(newId, species, gender, isSpayed, breed, colour, birthday,
+                                            vaccineStatus, idType, idNo, adoptionFee);
 
-            animals.Add(animal);
-            AddAnimalToFile(animal);
+                animals.Add(animal);
+                AddAnimalToFile(animal);
 
-            Console.WriteLine("Animal added successfully!\n");
+                Console.WriteLine("Animal added successfully!\n");
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
         }
+        static string GetNextId()
+        {
+            // If the file doesn't exist yet, start from 1
+            if (!File.Exists(filePath))
+                return "00000001";
+
+            var lines = File.ReadAllLines(filePath);
+
+            if (lines.Length == 0)
+                return "00000001";
+
+            // Get the last used ID (from the last line)
+            var lastLine = lines.Last();
+            var lastId = lastLine.Split(',')[0];
+
+            // Convert to int, add 1, then format it back to 8 digits
+            int nextIdNum = int.Parse(lastId) + 1;
+            return nextIdNum.ToString("D8");
+        }
+
 
         static double CalculateAdoptionFee(DateTime birthday)
         {
