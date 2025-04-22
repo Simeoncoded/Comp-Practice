@@ -17,8 +17,10 @@ namespace ClassPrac
             while (!exit)
             {
                 Console.WriteLine("\nHi — welcome to this animal app!");
-                Console.WriteLine("Press D to display all animals");
+                Console.WriteLine("Press D to display all animals sorted by species");
                 Console.WriteLine("Press N to add a new animal");
+                Console.WriteLine("Press U to update an animal");
+                Console.WriteLine("Press R to remove an animal");
                 Console.WriteLine("Press Q to quit");
                 Console.Write("Your choice: ");
 
@@ -31,6 +33,10 @@ namespace ClassPrac
                 else if (choice == "N")
                 {
                     AddAnimal();
+                }
+                else if (choice == "U")
+                {
+                    UpdateAnimal();
                 }
                 else if (choice == "Q")
                 {
@@ -99,6 +105,79 @@ namespace ClassPrac
             }
 
         }
+
+        static void UpdateAnimal()
+        {
+            Console.Write("Enter the ID of the animal you want to update: ");
+            string idToUpdate = Console.ReadLine();
+
+            if (!File.Exists(filePath))
+            {
+                Console.WriteLine("Animal file not found.");
+                return;
+            }
+
+            var lines = File.ReadAllLines(filePath).ToList();
+            var animalIndex = lines.FindIndex(line => line.StartsWith(idToUpdate + ","));
+
+            if (animalIndex == -1)
+            {
+                Console.WriteLine("Animal with that ID was not found.");
+                return;
+            }
+
+            var currentDetails = lines[animalIndex].Split(',');
+
+            Console.WriteLine($"Current Species: {currentDetails[1]} — Enter new or leave blank to keep:");
+            string species = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(species)) species = currentDetails[1];
+
+            Console.WriteLine($"Current Gender: {currentDetails[2]} — Enter new (M/F) or leave blank:");
+            string genderInput = Console.ReadLine();
+            char gender = string.IsNullOrWhiteSpace(genderInput) ? Convert.ToChar(currentDetails[2]) : Convert.ToChar(genderInput.ToUpper());
+
+            Console.WriteLine($"Current Is Spayed: {currentDetails[3]} — Enter new (true/false) or leave blank:");
+            string spayedInput = Console.ReadLine();
+            bool isSpayed = string.IsNullOrWhiteSpace(spayedInput) ? Convert.ToBoolean(currentDetails[3]) : Convert.ToBoolean(spayedInput);
+
+            Console.WriteLine($"Current Breed: {currentDetails[4]} — Enter new or leave blank:");
+            string breed = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(breed)) breed = currentDetails[4];
+
+            Console.WriteLine($"Current Colour: {currentDetails[5]} — Enter new or leave blank:");
+            string colour = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(colour)) colour = currentDetails[5];
+
+            Console.WriteLine($"Current Birthday: {currentDetails[6]} — Enter new (yyyy-mm-dd) or leave blank:");
+            string birthdayInput = Console.ReadLine();
+            DateTime birthday = string.IsNullOrWhiteSpace(birthdayInput) ? DateTime.Parse(currentDetails[6]) : DateTime.Parse(birthdayInput);
+
+            Console.WriteLine($"Current Vaccine Status: {currentDetails[7]} — Enter new or leave blank:");
+            string vaccineStatus = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(vaccineStatus)) vaccineStatus = currentDetails[7];
+
+            Console.WriteLine($"Current ID Type: {currentDetails[8]} — Enter new or leave blank:");
+            string idType = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(idType)) idType = currentDetails[8];
+
+            Console.WriteLine($"Current ID Number: {currentDetails[9]} — Enter new or leave blank:");
+            string idNo = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(idNo)) idNo = currentDetails[9];
+
+            double adoptionFee = CalculateAdoptionFee(birthday);
+
+            // Update line
+            string updatedLine = $"{idToUpdate},{species},{gender},{isSpayed},{breed},{colour}," +
+                                 $"{birthday.ToShortDateString()},{vaccineStatus},{idType},{idNo},{adoptionFee}";
+
+            lines[animalIndex] = updatedLine;
+
+            File.WriteAllLines(filePath, lines);
+
+            Console.WriteLine("Animal updated successfully!\n");
+        }
+
+
         static string GetNextId()
         {
             // If the file doesn't exist yet, start from 1
