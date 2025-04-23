@@ -12,6 +12,7 @@ namespace ClassPrac
 
         static void Main(string[] args)
         {
+
             bool exit = false;
 
             while (!exit)
@@ -123,165 +124,202 @@ namespace ClassPrac
 
         static void UpdateAnimal()
         {
-            Console.Write("Enter the ID of the animal you want to update: ");
-            string idToUpdate = Console.ReadLine();
-
-            if (!File.Exists(filePath))
+            try
             {
-                Console.WriteLine("Animal file not found.");
-                return;
+                Console.Write("Enter the ID of the animal you want to update: ");
+                string idToUpdate = Console.ReadLine();
+
+                if (!File.Exists(filePath))
+                {
+                    Console.WriteLine("Animal file not found.");
+                    return;
+                }
+
+                var lines = File.ReadAllLines(filePath).ToList();
+                var animalIndex = lines.FindIndex(line => line.StartsWith(idToUpdate + ","));
+
+                if (animalIndex == -1)
+                {
+                    Console.WriteLine("Animal with that ID was not found.");
+                    return;
+                }
+
+                var currentDetails = lines[animalIndex].Split(',');
+
+                Console.WriteLine($"Current Species: {currentDetails[1]} — Enter new or leave blank to keep:");
+                string species = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(species)) species = currentDetails[1];
+
+                Console.WriteLine($"Current Gender: {currentDetails[2]} — Enter new (M/F) or leave blank:");
+                string genderInput = Console.ReadLine();
+                char gender = string.IsNullOrWhiteSpace(genderInput) ? Convert.ToChar(currentDetails[2]) : Convert.ToChar(genderInput.ToUpper());
+
+                Console.WriteLine($"Current Is Spayed: {currentDetails[3]} — Enter new (true/false) or leave blank:");
+                string spayedInput = Console.ReadLine();
+                bool isSpayed = string.IsNullOrWhiteSpace(spayedInput) ? Convert.ToBoolean(currentDetails[3]) : Convert.ToBoolean(spayedInput);
+
+                Console.WriteLine($"Current Breed: {currentDetails[4]} — Enter new or leave blank:");
+                string breed = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(breed)) breed = currentDetails[4];
+
+                Console.WriteLine($"Current Colour: {currentDetails[5]} — Enter new or leave blank:");
+                string colour = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(colour)) colour = currentDetails[5];
+
+                Console.WriteLine($"Current Birthday: {currentDetails[6]} — Enter new (yyyy-mm-dd) or leave blank:");
+                string birthdayInput = Console.ReadLine();
+                DateTime birthday = string.IsNullOrWhiteSpace(birthdayInput) ? DateTime.Parse(currentDetails[6]) : DateTime.Parse(birthdayInput);
+
+                Console.WriteLine($"Current Vaccine Status: {currentDetails[7]} — Enter new or leave blank:");
+                string vaccineStatus = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(vaccineStatus)) vaccineStatus = currentDetails[7];
+
+                Console.WriteLine($"Current ID Type: {currentDetails[8]} — Enter new or leave blank:");
+                string idType = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(idType)) idType = currentDetails[8];
+
+                Console.WriteLine($"Current ID Number: {currentDetails[9]} — Enter new or leave blank:");
+                string idNo = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(idNo)) idNo = currentDetails[9];
+
+                double adoptionFee = CalculateAdoptionFee(birthday);
+
+                // Update line
+                string updatedLine = $"{idToUpdate},{species},{gender},{isSpayed},{breed},{colour}," +
+                                     $"{birthday.ToShortDateString()},{vaccineStatus},{idType},{idNo},{adoptionFee}";
+
+                lines[animalIndex] = updatedLine;
+
+                File.WriteAllLines(filePath, lines);
+
+                Console.WriteLine("Animal updated successfully!\n");
+            }
+            catch (Exception ex)
+            {
+
+               Console.WriteLine(ex.Message );
             }
 
-            var lines = File.ReadAllLines(filePath).ToList();
-            var animalIndex = lines.FindIndex(line => line.StartsWith(idToUpdate + ","));
-
-            if (animalIndex == -1)
-            {
-                Console.WriteLine("Animal with that ID was not found.");
-                return;
-            }
-
-            var currentDetails = lines[animalIndex].Split(',');
-
-            Console.WriteLine($"Current Species: {currentDetails[1]} — Enter new or leave blank to keep:");
-            string species = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(species)) species = currentDetails[1];
-
-            Console.WriteLine($"Current Gender: {currentDetails[2]} — Enter new (M/F) or leave blank:");
-            string genderInput = Console.ReadLine();
-            char gender = string.IsNullOrWhiteSpace(genderInput) ? Convert.ToChar(currentDetails[2]) : Convert.ToChar(genderInput.ToUpper());
-
-            Console.WriteLine($"Current Is Spayed: {currentDetails[3]} — Enter new (true/false) or leave blank:");
-            string spayedInput = Console.ReadLine();
-            bool isSpayed = string.IsNullOrWhiteSpace(spayedInput) ? Convert.ToBoolean(currentDetails[3]) : Convert.ToBoolean(spayedInput);
-
-            Console.WriteLine($"Current Breed: {currentDetails[4]} — Enter new or leave blank:");
-            string breed = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(breed)) breed = currentDetails[4];
-
-            Console.WriteLine($"Current Colour: {currentDetails[5]} — Enter new or leave blank:");
-            string colour = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(colour)) colour = currentDetails[5];
-
-            Console.WriteLine($"Current Birthday: {currentDetails[6]} — Enter new (yyyy-mm-dd) or leave blank:");
-            string birthdayInput = Console.ReadLine();
-            DateTime birthday = string.IsNullOrWhiteSpace(birthdayInput) ? DateTime.Parse(currentDetails[6]) : DateTime.Parse(birthdayInput);
-
-            Console.WriteLine($"Current Vaccine Status: {currentDetails[7]} — Enter new or leave blank:");
-            string vaccineStatus = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(vaccineStatus)) vaccineStatus = currentDetails[7];
-
-            Console.WriteLine($"Current ID Type: {currentDetails[8]} — Enter new or leave blank:");
-            string idType = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(idType)) idType = currentDetails[8];
-
-            Console.WriteLine($"Current ID Number: {currentDetails[9]} — Enter new or leave blank:");
-            string idNo = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(idNo)) idNo = currentDetails[9];
-
-            double adoptionFee = CalculateAdoptionFee(birthday);
-
-            // Update line
-            string updatedLine = $"{idToUpdate},{species},{gender},{isSpayed},{breed},{colour}," +
-                                 $"{birthday.ToShortDateString()},{vaccineStatus},{idType},{idNo},{adoptionFee}";
-
-            lines[animalIndex] = updatedLine;
-
-            File.WriteAllLines(filePath, lines);
-
-            Console.WriteLine("Animal updated successfully!\n");
+           
         }
 
         static void RemoveAnimal()
         {
-            Console.Write("Enter the ID of the animal you want to remove: ");
-            string idToRemove = Console.ReadLine();
-
-            if (!File.Exists(filePath))
+            try
             {
-                Console.WriteLine("Animal file not found.");
-                return;
-            }
+                Console.Write("Enter the ID of the animal you want to remove: ");
+                string idToRemove = Console.ReadLine();
 
-            var lines = File.ReadAllLines(filePath).ToList();
-            var animalIndex = lines.FindIndex(line => line.StartsWith(idToRemove + ","));
+                if (!File.Exists(filePath))
+                {
+                    Console.WriteLine("Animal file not found.");
+                    return;
+                }
 
-            if (animalIndex == -1)
-            {
-                Console.WriteLine("Animal with that ID was not found.");
-                return;
-            }
+                var lines = File.ReadAllLines(filePath).ToList();
+                var animalIndex = lines.FindIndex(line => line.StartsWith(idToRemove + ","));
 
-            var currentDetails = lines[animalIndex];
+                if (animalIndex == -1)
+                {
+                    Console.WriteLine("Animal with that ID was not found.");
+                    return;
+                }
 
-            Console.WriteLine($"\nAre you sure you want to remove this animal?\n{currentDetails}");
-            Console.Write("Press Y to confirm, N to cancel: ");
-            string rAnswer = Console.ReadLine().ToUpper();
-            if (rAnswer == "Y")
-            {
-                lines.RemoveAt(animalIndex);
-                File.WriteAllLines(filePath, lines);
-                Console.WriteLine("Animal removed successfully!\n");
+                var currentDetails = lines[animalIndex];
+
+                Console.WriteLine($"\nAre you sure you want to remove this animal?\n{currentDetails}");
+                Console.Write("Press Y to confirm, N to cancel: ");
+                string rAnswer = Console.ReadLine().ToUpper();
+                if (rAnswer == "Y")
+                {
+                    lines.RemoveAt(animalIndex);
+                    File.WriteAllLines(filePath, lines);
+                    Console.WriteLine("Animal removed successfully!\n");
+                }
+                else if (rAnswer == "N")
+                {
+                    Console.WriteLine("Operation cancelled. Animal was not removed.\n");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter Y or N.\n");
+                }
             }
-            else if (rAnswer == "N")
+            catch (Exception ex)
             {
-                Console.WriteLine("Operation cancelled. Animal was not removed.\n");
+
+              Console.WriteLine(ex.Message);
             }
-            else
-            {
-                Console.WriteLine("Invalid input. Please enter Y or N.\n");
-            }
+           
         }
 
         static void SearchAnimal()
         {
-            Console.Write("Enter a name or species to search: ");
-            string keyword = Console.ReadLine().ToLower();
-
-            if (!File.Exists(filePath))
+            try
             {
-                Console.WriteLine("Animal file not found.");
-                return;
-            }
+                Console.Write("Enter a name or species to search: ");
+                string keyword = Console.ReadLine().ToLower();
 
-            var lines = File.ReadAllLines(filePath);
-            var matches = lines
-                .Where(line => line.ToLower().Contains(keyword))
-                .ToList();
-
-            if (matches.Count == 0)
-            {
-                Console.WriteLine("No matching animals found.");
-            }
-            else
-            {
-                Console.WriteLine("\nMatching Animals:\n");
-                foreach (var line in matches)
+                if (!File.Exists(filePath))
                 {
-                    Console.WriteLine(line);
+                    Console.WriteLine("Animal file not found.");
+                    return;
+                }
+
+                var lines = File.ReadAllLines(filePath);
+                var matches = lines
+                    .Where(line => line.ToLower().Contains(keyword))
+                    .ToList();
+
+                if (matches.Count == 0)
+                {
+                    Console.WriteLine("No matching animals found.");
+                }
+                else
+                {
+                    Console.WriteLine("\nMatching Animals:\n");
+                    foreach (var line in matches)
+                    {
+                        Console.WriteLine(line);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+
+               Console.WriteLine(ex.Message);
+            }
+           
         }
 
         static void DisplayAnimalsSortedBySpecies()
         {
-            if (!File.Exists(filePath))
+            try
             {
-                Console.WriteLine("Animal file not found.");
-                return;
+                if (!File.Exists(filePath))
+                {
+                    Console.WriteLine("Animal file not found.");
+                    return;
+                }
+
+                var lines = File.ReadAllLines(filePath);
+
+                var sortedLines = lines
+                    .OrderBy(line => line.Split(',')[1]) // Species is the 2nd column
+                    .ToList();
+
+                Console.WriteLine("\nAnimals sorted by species:\n");
+                foreach (var line in sortedLines)
+                {
+                    Console.WriteLine(line);
+                }
             }
-
-            var lines = File.ReadAllLines(filePath);
-
-            var sortedLines = lines
-                .OrderBy(line => line.Split(',')[1]) // Species is the 2nd column
-                .ToList();
-
-            Console.WriteLine("\nAnimals sorted by species:\n");
-            foreach (var line in sortedLines)
+            catch (Exception ex)
             {
-                Console.WriteLine(line);
+
+               Console.WriteLine($"{ex.Message}");
             }
+           
         }
 
         static void DisplayOldestThreePerSpecies()
