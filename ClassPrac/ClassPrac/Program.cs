@@ -17,10 +17,13 @@ namespace ClassPrac
             while (!exit)
             {
                 Console.WriteLine("\nHi — welcome to this animal app!");
-                Console.WriteLine("Press D to display all animals sorted by species");
+                Console.WriteLine("Press D to display all animals");
+                Console.WriteLine("Press DS to display all animals sorted by species");
+                Console.WriteLine("Press DO to display three oldest animals by species");
                 Console.WriteLine("Press N to add a new animal");
                 Console.WriteLine("Press U to update an animal");
                 Console.WriteLine("Press R to remove an animal");
+                Console.WriteLine("Press S to search by name or species");
                 Console.WriteLine("Press Q to quit");
                 Console.Write("Your choice: ");
 
@@ -41,6 +44,14 @@ namespace ClassPrac
                 else if (choice == "R")
                 {
                     RemoveAnimal();
+                }
+                else if (choice == "S")
+                {
+                    SearchAnimal();
+                }
+                else if (choice == "DS")
+                {
+                    DisplayAnimalsSortedBySpecies();
                 }
                 else if (choice == "Q")
                 {
@@ -221,6 +232,89 @@ namespace ClassPrac
                 Console.WriteLine("Invalid input. Please enter Y or N.\n");
             }
         }
+
+        static void SearchAnimal()
+        {
+            Console.Write("Enter a name or species to search: ");
+            string keyword = Console.ReadLine().ToLower();
+
+            if (!File.Exists(filePath))
+            {
+                Console.WriteLine("Animal file not found.");
+                return;
+            }
+
+            var lines = File.ReadAllLines(filePath);
+            var matches = lines
+                .Where(line => line.ToLower().Contains(keyword))
+                .ToList();
+
+            if (matches.Count == 0)
+            {
+                Console.WriteLine("No matching animals found.");
+            }
+            else
+            {
+                Console.WriteLine("\nMatching Animals:\n");
+                foreach (var line in matches)
+                {
+                    Console.WriteLine(line);
+                }
+            }
+        }
+
+        static void DisplayAnimalsSortedBySpecies()
+        {
+            if (!File.Exists(filePath))
+            {
+                Console.WriteLine("Animal file not found.");
+                return;
+            }
+
+            var lines = File.ReadAllLines(filePath);
+
+            var sortedLines = lines
+                .OrderBy(line => line.Split(',')[1]) // Species is the 2nd column
+                .ToList();
+
+            Console.WriteLine("\nAnimals sorted by species:\n");
+            foreach (var line in sortedLines)
+            {
+                Console.WriteLine(line);
+            }
+        }
+
+        static void DisplayOldestThreePerSpecies()
+        {
+            if (!File.Exists(filePath))
+            {
+                Console.WriteLine("Animal file not found.");
+                return;
+            }
+
+            var animalsBySpecies = File.ReadAllLines(filePath)
+                .Select(line => new
+                {
+                    Line = line,
+                    Species = line.Split(',')[1],
+                    Birthday = DateTime.Parse(line.Split(',')[6])
+                })
+                .GroupBy(a => a.Species);
+
+            foreach (var speciesGroup in animalsBySpecies)
+            {
+                Console.WriteLine($"\nSpecies: {speciesGroup.Key}");
+                var oldestThree = speciesGroup
+                    .OrderBy(a => a.Birthday)
+                    .Take(3);
+
+                foreach (var animal in oldestThree)
+                {
+                    Console.WriteLine(animal.Line);
+                }
+            }
+        }
+
 
 
         static string GetNextId()
