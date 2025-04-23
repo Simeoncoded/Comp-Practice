@@ -184,7 +184,7 @@ namespace ClassPrac
         static void RemoveAnimal()
         {
             Console.Write("Enter the ID of the animal you want to remove: ");
-            string idToUpdate = Console.ReadLine();
+            string idToRemove = Console.ReadLine();
 
             if (!File.Exists(filePath))
             {
@@ -193,7 +193,7 @@ namespace ClassPrac
             }
 
             var lines = File.ReadAllLines(filePath).ToList();
-            var animalIndex = lines.FindIndex(line => line.StartsWith(idToUpdate + ","));
+            var animalIndex = lines.FindIndex(line => line.StartsWith(idToRemove + ","));
 
             if (animalIndex == -1)
             {
@@ -203,11 +203,23 @@ namespace ClassPrac
 
             var currentDetails = lines[animalIndex];
 
-            Console.WriteLine($"Are you sure you want to remove this animal\n ${currentDetails} If Yes press Y If no press N");
-            string species = Console.ReadLine();
-           
-
-            Console.WriteLine("Animal removed successfully!\n");
+            Console.WriteLine($"\nAre you sure you want to remove this animal?\n{currentDetails}");
+            Console.Write("Press Y to confirm, N to cancel: ");
+            string rAnswer = Console.ReadLine().ToUpper();
+            if (rAnswer == "Y")
+            {
+                lines.RemoveAt(animalIndex);
+                File.WriteAllLines(filePath, lines);
+                Console.WriteLine("Animal removed successfully!\n");
+            }
+            else if (rAnswer == "N")
+            {
+                Console.WriteLine("Operation cancelled. Animal was not removed.\n");
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please enter Y or N.\n");
+            }
         }
 
 
