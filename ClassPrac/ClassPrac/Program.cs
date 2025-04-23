@@ -38,6 +38,10 @@ namespace ClassPrac
                 {
                     UpdateAnimal();
                 }
+                else if (choice == "R")
+                {
+                    RemoveAnimal();
+                }
                 else if (choice == "Q")
                 {
                     exit = true;
@@ -175,6 +179,35 @@ namespace ClassPrac
             File.WriteAllLines(filePath, lines);
 
             Console.WriteLine("Animal updated successfully!\n");
+        }
+
+        static void RemoveAnimal()
+        {
+            Console.Write("Enter the ID of the animal you want to remove: ");
+            string idToUpdate = Console.ReadLine();
+
+            if (!File.Exists(filePath))
+            {
+                Console.WriteLine("Animal file not found.");
+                return;
+            }
+
+            var lines = File.ReadAllLines(filePath).ToList();
+            var animalIndex = lines.FindIndex(line => line.StartsWith(idToUpdate + ","));
+
+            if (animalIndex == -1)
+            {
+                Console.WriteLine("Animal with that ID was not found.");
+                return;
+            }
+
+            var currentDetails = lines[animalIndex];
+
+            Console.WriteLine($"Are you sure you want to remove this animal\n ${currentDetails} If Yes press Y If no press N");
+            string species = Console.ReadLine();
+           
+
+            Console.WriteLine("Animal removed successfully!\n");
         }
 
 
