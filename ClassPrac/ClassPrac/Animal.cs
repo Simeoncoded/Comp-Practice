@@ -41,11 +41,14 @@ namespace ClassPrac
         public string IdentificationType { get; set; }
         public string IdentificationNumber { get; set; }
         public double AdoptionFee { get; set; }
+        public bool IsArchived { get; set; }
+        public DateTime? AdoptionDate { get; set; } // Nullable if not adopted yet
+
 
         // Constructor
         public Animal(string id, string species, char gender, bool isSpayed, string breed, string colour,
                       DateTime birthday, string vaccineStatus, string identificationType, string identificationNumber,
-                      double adoptionFee)
+                      double adoptionFee, bool isarchived, DateTime? adoptiondate)
         {
             ID = id;
             Species = species;
@@ -58,6 +61,8 @@ namespace ClassPrac
             IdentificationType = identificationType;
             IdentificationNumber = identificationNumber;
             AdoptionFee = adoptionFee;
+            IsArchived = isarchived;
+            adoptiondate = AdoptionDate;
         }
     }
 
