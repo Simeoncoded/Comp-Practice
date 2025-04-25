@@ -58,6 +58,23 @@ namespace ClassPrac
                 {
                     DisplayAnimalsSortedBySpecies();
                 }
+                else if (choice == "A")
+                {
+                    ArchiveAnimalById();
+                }
+                else if (choice == "T")
+                {
+                    ViewArchivedAnimalsWithinTimeframe();
+                }
+                else if (choice == "M")
+                {
+                   AutoArchiveOldAdoptedAnimals();
+                }
+                else if (choice == "V")
+                {
+                    RestoreArchivedAnimal();
+                }
+
                 else if (choice == "Q")
                 {
                     exit = true;
@@ -412,6 +429,104 @@ namespace ClassPrac
             {
                 Console.WriteLine("Animal file not found.");
             }
+        }
+
+        static void ArchiveAnimalById()
+        {
+            Console.Write("Enter ID of animal to archive: ");
+            string id = Console.ReadLine();
+
+            var animal = animals.FirstOrDefault(a => a.ID == id && !a.IsArchived);
+            if (animal == null)
+            {
+                Console.WriteLine("Animal not found or already archived.");
+                return;
+            }
+
+            animal.IsArchived = true;
+            animal.AdoptionDate = DateTime.Today;
+
+            SaveAnimalsToFile();
+            Console.WriteLine("Animal archived successfully.");
+        }
+
+        static void RestoreArchivedAnimal()
+        {
+            Console.Write("Enter ID of animal to restore: ");
+            string id = Console.ReadLine();
+
+            var animal = animals.FirstOrDefault(a => a.ID == id && a.IsArchived);
+            if (animal == null)
+            {
+                Console.WriteLine("Archived animal not found.");
+                return;
+            }
+
+            animal.IsArchived = false;
+            animal.AdoptionDate = null;
+
+            SaveAnimalsToFile();
+            Console.WriteLine("Animal restored successfully.");
+        }
+        static void ViewArchivedAnimalsWithinTimeframe()
+        {
+            Console.Write("Enter start date (yyyy-mm-dd): ");
+            DateTime startDate = DateTime.Parse(Console.ReadLine());
+
+            Console.Write("Enter end date (yyyy-mm-dd): ");
+            DateTime endDate = DateTime.Parse(Console.ReadLine());
+
+            var filtered = animals
+                .Where(a => a.IsArchived && a.AdoptionDate.HasValue && a.AdoptionDate >= startDate && a.AdoptionDate <= endDate)
+                .ToList();
+
+            if (filtered.Count == 0)
+            {
+                Console.WriteLine("No archived animals found in that timeframe.");
+                return;
+            }
+
+            foreach (var a in filtered)
+            {
+                a.DisplayInfo(); // ✅ this will print directly
+            }
+        }
+
+
+
+
+        static void AutoArchiveOldAdoptedAnimals()
+        {
+            DateTime cutoff = DateTime.Today.AddMonths(-3);
+            int count = 0;
+
+            foreach (var animal in animals)
+            {
+                if (!animal.IsArchived && animal.AdoptionDate.HasValue && animal.AdoptionDate.Value <= cutoff)
+                {
+                    animal.IsArchived = true;
+                    count++;
+                }
+            }
+
+            SaveAnimalsToFile();
+            Console.WriteLine($"{count} animals auto-archived.");
+        }
+
+
+
+
+
+        public static void SaveAnimalsToFile()
+        {
+            var lines = animals.Select(animal =>
+                $"{animal.ID},{animal.Species},{animal.Gender},{animal.IsSpayed}," +
+                $"{animal.Breed},{animal.Colour},{animal.Birthday.ToShortDateString()}," +
+                $"{animal.VaccineStatus},{animal.IdentificationType},{animal.IdentificationNumber}," +
+                $"{animal.AdoptionFee},{animal.IsArchived},{(animal.AdoptionDate.HasValue ? animal.AdoptionDate.Value.ToShortDateString() : "")}"
+            );
+
+            File.WriteAllLines(filePath, lines); // Overwrites entire file
         }
 
 

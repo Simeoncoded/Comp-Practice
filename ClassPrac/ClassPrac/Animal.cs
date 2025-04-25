@@ -62,8 +62,37 @@ namespace ClassPrac
             IdentificationNumber = identificationNumber;
             AdoptionFee = adoptionFee;
             IsArchived = isarchived;
-            adoptiondate = AdoptionDate;
+            AdoptionDate = adoptiondate;
         }
+
+        public void DisplayInfo()
+        {
+            Console.WriteLine("--------------------------------------------------");
+            Console.WriteLine($"ID: {ID}");
+            Console.WriteLine($"Species: {Species}");
+            Console.WriteLine($"Gender: {Gender}");
+            Console.WriteLine($"Spayed: {IsSpayed}");
+            Console.WriteLine($"Breed: {Breed}");
+            Console.WriteLine($"Colour: {Colour}");
+            Console.WriteLine($"Birthday: {Birthday.ToShortDateString()}");
+            Console.WriteLine($"Vaccine Status: {VaccineStatus}");
+            Console.WriteLine($"ID Type: {IdentificationType}");
+            Console.WriteLine($"ID Number: {IdentificationNumber}");
+            Console.WriteLine($"Adoption Fee: ${AdoptionFee}");
+
+            if (IsArchived)
+            {
+                Console.WriteLine($"Archived: Yes");
+                Console.WriteLine($"Adoption Date: {(AdoptionDate.HasValue ? AdoptionDate.Value.ToShortDateString() : "N/A")}");
+            }
+            else
+            {
+                Console.WriteLine("Archived: No");
+            }
+
+            Console.WriteLine("--------------------------------------------------\n");
+        }
+
     }
 
 }
