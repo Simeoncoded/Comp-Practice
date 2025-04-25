@@ -415,7 +415,7 @@ namespace ClassPrac
             string line = $"{animal.ID},{animal.Species},{animal.Gender},{animal.IsSpayed}," +
                           $"{animal.Breed},{animal.Colour},{animal.Birthday.ToShortDateString()}," +
                           $"{animal.VaccineStatus},{animal.IdentificationType},{animal.IdentificationNumber}," +
-                          $"{animal.AdoptionFee}";
+                          $"{animal.AdoptionFee},{animal.IsArchived},{(animal.AdoptionDate.HasValue ? animal.AdoptionDate.Value.ToShortDateString() : "")}";
 
             File.AppendAllText(filePath, line + Environment.NewLine);
         }
