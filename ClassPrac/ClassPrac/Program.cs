@@ -25,6 +25,10 @@ namespace ClassPrac
                 Console.WriteLine("Press U to update an animal");
                 Console.WriteLine("Press R to remove an animal");
                 Console.WriteLine("Press S to search by name or species");
+                Console.WriteLine("Press A to archive an adopted animal");
+                Console.WriteLine("Press T to view archived animals within a timeframe");
+                Console.WriteLine("Press M to auto-archive animals adopted 3+ months ago");
+                Console.WriteLine("Press V to restore an archived animal");
                 Console.WriteLine("Press Q to quit");
                 Console.Write("Your choice: ");
 
@@ -102,12 +106,13 @@ namespace ClassPrac
                 Console.WriteLine("Enter Identification Number: ");
                 string idNo = Console.ReadLine();
 
-                double adoptionFee = CalculateAdoptionFee(birthday);
+                double adoptionFee = CalculateAdoptionFee(birthday); 
 
                 string newId = GetNextId(); // Auto-generate padded 8-digit ID
 
                 Animal animal = new Animal(newId, species, gender, isSpayed, breed, colour, birthday,
-                                            vaccineStatus, idType, idNo, adoptionFee);
+                            vaccineStatus, idType, idNo, adoptionFee, false, null);
+
 
                 animals.Add(animal);
                 AddAnimalToFile(animal);
