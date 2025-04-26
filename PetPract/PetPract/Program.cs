@@ -30,6 +30,7 @@ namespace PetPract
 
                 if (choice == "D")
                 {
+                    DisplayAnimals();
                 }
                 else if (choice == "N")
                 {
@@ -87,6 +88,28 @@ namespace PetPract
 
         }
 
+        static void DisplayAnimals()
+        {
+            if (File.Exists(filePath))
+            {
+                string text = File.ReadAllText(filePath);
+
+                if (string.IsNullOrWhiteSpace(text))
+                {
+                    Console.WriteLine("No pets found.");
+                }
+                else
+                {
+                    Console.WriteLine("Pets in the system:\n");
+                    Console.WriteLine(text);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Pet file not found.");
+            }
+        }
+
 
         static string GetNextId()
         {
@@ -110,7 +133,7 @@ namespace PetPract
 
         public static void AddAnimalToFile(Pet pet)
         {
-            string line = $"{pet.ID},{pet.Name},{pet.Species},{pet.CheckInTime == DateTime.Now}";
+            string line = $"{pet.ID},{pet.Name},{pet.Species},{pet.CheckInTime}";
 
             File.AppendAllText(filePath, line + Environment.NewLine);
         }
