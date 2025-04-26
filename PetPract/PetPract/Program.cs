@@ -78,10 +78,7 @@ namespace PetPract
 
         public static void AddAnimalToFile(Pet pet)
         {
-            string line = $"{animal.ID},{animal.Species},{animal.Gender},{animal.IsSpayed}," +
-                          $"{animal.Breed},{animal.Colour},{animal.Birthday.ToShortDateString()}," +
-                          $"{animal.VaccineStatus},{animal.IdentificationType},{animal.IdentificationNumber}," +
-                          $"{animal.AdoptionFee},{animal.IsArchived},{(animal.AdoptionDate.HasValue ? animal.AdoptionDate.Value.ToShortDateString() : "")}";
+            string line = $"{pet.ID},{pet.Species},{pet.CheckInTime == DateTime.Now}";
 
             File.AppendAllText(filePath, line + Environment.NewLine);
         }
