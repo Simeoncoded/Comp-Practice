@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,6 +51,39 @@ namespace PetPract
                     Console.WriteLine("Invalid choice — try again.");
                 }
             }
+
+
+        }
+
+
+        static string GetNextId()
+        {
+            // If the file doesn't exist yet, start from 1
+            if (!File.Exists(filePath))
+                return "00000001";
+
+            var lines = File.ReadAllLines(filePath);
+
+            if (lines.Length == 0)
+                return "00000001";
+
+            // Get the last used ID (from the last line)
+            var lastLine = lines.Last();
+            var lastId = lastLine.Split(',')[0];
+
+            // Convert to int, add 1, then format it back to 8 digits
+            int nextIdNum = int.Parse(lastId) + 1;
+            return nextIdNum.ToString("D8");
+        }
+
+        public static void AddAnimalToFile(Pet pet)
+        {
+            string line = $"{animal.ID},{animal.Species},{animal.Gender},{animal.IsSpayed}," +
+                          $"{animal.Breed},{animal.Colour},{animal.Birthday.ToShortDateString()}," +
+                          $"{animal.VaccineStatus},{animal.IdentificationType},{animal.IdentificationNumber}," +
+                          $"{animal.AdoptionFee},{animal.IsArchived},{(animal.AdoptionDate.HasValue ? animal.AdoptionDate.Value.ToShortDateString() : "")}";
+
+            File.AppendAllText(filePath, line + Environment.NewLine);
         }
     }
 }
