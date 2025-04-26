@@ -1,0 +1,7 @@
+C:\Users\User\Desktop\CompPractice\PetPract\PetPract\bin\Debug\PetPract.exe.config
+C:\Users\User\Desktop\CompPractice\PetPract\PetPract\bin\Debug\PetPract.exe
+C:\Users\User\Desktop\CompPractice\PetPract\PetPract\bin\Debug\PetPract.pdb
+C:\Users\User\Desktop\CompPractice\PetPract\PetPract\obj\Debug\PetPract.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\CompPractice\PetPract\PetPract\obj\Debug\PetPract.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\CompPractice\PetPract\PetPract\obj\Debug\PetPract.exe
+C:\Users\User\Desktop\CompPractice\PetPract\PetPract\obj\Debug\PetPract.pdb

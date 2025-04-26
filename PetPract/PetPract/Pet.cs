@@ -8,7 +8,7 @@ namespace PetPract
 {
     public class Pet
     {
-        public int ID {get; set;}
+        public string ID {get; set;}
 
         public string Name {get; set;}  
 
@@ -19,14 +19,13 @@ namespace PetPract
         public bool isCheckedOut { get; set;}
 
 
-        public Pet (int id, string name, string species, DateTime checkInTime, bool ischeckedout)
+        public Pet (string id, string name, string species, DateTime checkInTime, bool ischeckedout)
         {
             ID = id;
             Name = name;
             Species = species;
             CheckInTime = checkInTime;
-            isCheckedOut = ischeckedout;
-            
+            isCheckedOut = ischeckedout;      
 
         }
     }

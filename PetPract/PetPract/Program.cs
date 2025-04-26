@@ -33,7 +33,7 @@ namespace PetPract
                 }
                 else if (choice == "N")
                 {
-
+                    AddAnimal();
                 }
                 else if (choice == "C")
                 {
@@ -52,6 +52,38 @@ namespace PetPract
                 }
             }
 
+
+        }
+
+
+        static void AddAnimal()
+        {
+            try
+            {
+                Console.WriteLine("Enter Pet Name: ");
+                string name = Console.ReadLine();
+
+                Console.WriteLine("Enter Species (Dog, Cat, Bird, etc.): ");
+                string species = Console.ReadLine();
+
+                DateTime ciTime = DateTime.Now;
+
+                
+                string newId = GetNextId(); // Auto-generate padded 8-digit ID
+
+                Pet pet = new Pet(newId, name,species,ciTime,false);
+
+
+                pets.Add(pet);
+                AddAnimalToFile(pet);
+
+                Console.WriteLine("Pet added successfully!\n");
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
         }
 
@@ -78,7 +110,7 @@ namespace PetPract
 
         public static void AddAnimalToFile(Pet pet)
         {
-            string line = $"{pet.ID},{pet.Species},{pet.CheckInTime == DateTime.Now}";
+            string line = $"{pet.ID},{pet.Name},{pet.Species},{pet.CheckInTime == DateTime.Now}";
 
             File.AppendAllText(filePath, line + Environment.NewLine);
         }
