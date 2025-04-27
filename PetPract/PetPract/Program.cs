@@ -67,12 +67,10 @@ namespace PetPract
                 Console.WriteLine("Enter Species (Dog, Cat, Bird, etc.): ");
                 string species = Console.ReadLine();
 
-                DateTime ciTime = DateTime.Now;
-
                 
                 string newId = GetNextId(); // Auto-generate padded 8-digit ID
 
-                Pet pet = new Pet(newId, name,species,ciTime,false);
+                Pet pet = new Pet(newId, name,species,DateTime.Now,false);
 
 
                 pets.Add(pet);
