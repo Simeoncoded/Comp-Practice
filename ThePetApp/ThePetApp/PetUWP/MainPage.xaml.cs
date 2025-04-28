@@ -28,12 +28,42 @@ namespace PetUWP
             this.InitializeComponent();
         }
 
-        string filepath = "pets.txt";
+        string filePath = "pets.txt";
 
         private void savePet(Pet pet)
         {
             string line = $"{pet.ID},{pet.Name},{pet.Species},{pet.CheckInTime},{pet.isCheckedOut}";
-            File.AppendAllText(filepath, line+Environment.NewLine);
+            File.AppendAllText(filePath, line+Environment.NewLine);
         }
+
+        private List<Pet> LoadPets()
+        {
+            List<Pet> pets = new List<Pet>();
+
+            if (!File.Exists(filePath))
+                return pets;
+
+            var lines = File.ReadAllLines(filePath);
+            foreach (var line in lines)
+            {
+                var parts = line.Split(',');
+
+                if (parts.Length >= 5)
+                {
+                    Pet pet = new Pet(
+                        parts[0],
+                        parts[1],
+                        parts[2],
+                        DateTime.Parse(parts[3]),
+                        bool.Parse(parts[4])
+                    );
+
+                    pets.Add(pet);
+                }
+            }
+
+            return pets;
+        }
+
     }
 }
