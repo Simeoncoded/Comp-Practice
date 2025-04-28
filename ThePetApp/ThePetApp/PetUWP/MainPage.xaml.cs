@@ -27,5 +27,13 @@ namespace PetUWP
         {
             this.InitializeComponent();
         }
+
+        string filepath = "pets.txt";
+
+        private void savePet(Pet pet)
+        {
+            string line = $"{pet.ID},{pet.Name},{pet.Species},{pet.CheckInTime},{pet.isCheckedOut}";
+            File.AppendAllText(filepath, line+Environment.NewLine);
+        }
     }
 }
