@@ -38,7 +38,7 @@ namespace PetPract
                 }
                 else if (choice == "C")
                 {
-
+                    CheckoutPet();
                 }
 
 
@@ -106,6 +106,70 @@ namespace PetPract
             {
                 Console.WriteLine("Pet file not found.");
             }
+        }
+
+        static void CheckoutPet()
+        {
+            try
+            {
+                Console.Write("Enter the ID of the pet you want to checkout: ");
+                string idToRemove = Console.ReadLine();
+
+                if (!File.Exists(filePath))
+                {
+                    Console.WriteLine("Pet file not found.");
+                    return;
+                }
+
+                var lines = File.ReadAllLines(filePath).ToList();
+                var animalIndex = lines.FindIndex(line => line.StartsWith(idToRemove + ","));
+
+                if (animalIndex == -1)
+                {
+                    Console.WriteLine("Pet with that ID was not found.");
+                    return;
+                }
+
+                var currentDetails = lines[animalIndex];
+
+                Console.WriteLine($"\nAre you sure you want to checkout this pet?\n{currentDetails}");
+                Console.Write("Press Y to confirm, N to cancel: ");
+                string rAnswer = Console.ReadLine().ToUpper();
+                if (rAnswer == "Y")
+                {
+
+                    var parts = lines[animalIndex].Split(',');
+
+                    // Assuming your pet class looks something like: 
+                    // ID, Name, Species, Breed, Age, CheckInTime, IsCheckedOut
+                    // and IsCheckedOut is the 6th (index 6) or 7th column (index 6 if starting at 0)
+
+                    parts[4] = "true"; // or "true", depending how you save it
+
+                    // Rebuild the line
+                    lines[animalIndex] = string.Join(",", parts);
+
+                    // Save all lines back to the file
+                    File.WriteAllLines(filePath, lines);
+
+                    Console.WriteLine("Pet checked out successfully!\n");
+
+                }
+                else if (rAnswer == "N")
+                {
+                    Console.WriteLine("Operation cancelled. Pet was not checked out.\n");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter Y or N.\n");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
+            }
+
         }
 
 
