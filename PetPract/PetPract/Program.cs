@@ -41,7 +41,6 @@ namespace PetPract
                     CheckoutPet();
                 }
 
-
                 else if (choice == "Q")
                 {
                     exit = true;
@@ -195,7 +194,7 @@ namespace PetPract
 
         public static void AddAnimalToFile(Pet pet)
         {
-            string line = $"{pet.ID},{pet.Name},{pet.Species},{pet.CheckInTime}";
+            string line = $"{pet.ID},{pet.Name},{pet.Species},{pet.CheckInTime},{pet.isCheckedOut}";
 
             File.AppendAllText(filePath, line + Environment.NewLine);
         }
