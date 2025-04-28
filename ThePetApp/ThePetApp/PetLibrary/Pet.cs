@@ -26,7 +26,6 @@ namespace PetLibrary
             Species = species;
             CheckInTime = checkInTime;
             isCheckedOut = ischeckedout;
-
         }
     }
 }

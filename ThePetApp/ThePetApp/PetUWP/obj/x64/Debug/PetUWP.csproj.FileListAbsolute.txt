@@ -43,3 +43,7 @@ C:\Users\User\Desktop\CompPractice\ThePetApp\ThePetApp\PetUWP\obj\x64\Debug\qual
 C:\Users\User\Desktop\CompPractice\ThePetApp\ThePetApp\PetUWP\obj\x64\Debug\MultipleQualifiersPerDimensionFound.txt
 C:\Users\User\Desktop\CompPractice\ThePetApp\ThePetApp\PetUWP\obj\x64\Debug\ProjectArchitectures.txt
 C:\Users\User\Desktop\CompPractice\ThePetApp\ThePetApp\PetUWP\obj\x64\Debug\.winmd_cache\$Microsoft.UI.Xaml.Markup.winmd_637424959200000000.json
+C:\Users\User\Desktop\CompPractice\ThePetApp\ThePetApp\PetUWP\bin\x64\Debug\PetLibrary.dll
+C:\Users\User\Desktop\CompPractice\ThePetApp\ThePetApp\PetUWP\bin\x64\Debug\PetLibrary.pdb
+C:\Users\User\Desktop\CompPractice\ThePetApp\ThePetApp\PetUWP\bin\x64\Debug\PetLibrary.pri
+C:\Users\User\Desktop\CompPractice\ThePetApp\ThePetApp\PetUWP\obj\x64\Debug\PetLibrary.pri.xml
