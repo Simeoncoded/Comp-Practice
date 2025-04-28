@@ -194,7 +194,7 @@ namespace PetPract
 
         public static void AddAnimalToFile(Pet pet)
         {
-            string line = $"{pet.ID},{pet.Name},{pet.Species},{pet.CheckInTime},{pet.isCheckedOut}";
+            string line = $"Pet ID: {pet.ID}, Pet Name: {pet.Name}, Pet Specie: {pet.Species}, Check-In Time: {pet.CheckInTime}, Checked-Out: {pet.isCheckedOut}";
 
             File.AppendAllText(filePath, line + Environment.NewLine);
         }
