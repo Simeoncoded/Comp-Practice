@@ -14,6 +14,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using PetLibrary;
 using Windows.UI.Popups;
+using System.Threading.Tasks;
+using Windows.Storage;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -29,45 +31,70 @@ namespace PetUWP
         public MainPage()
         {
             this.InitializeComponent();
-            pets = LoadPets();  // Load pets from the file at startup
+            LoadPetsOnStartup();  // load and show pets
         }
 
         string filePath = "pets.txt";
 
-        private void savePet(Pet pet)
+        //private void savePet(Pet pet)
+        //{
+        //    string line = $"{pet.ID},{pet.Name},{pet.Species},{pet.CheckInTime},{pet.isCheckedOut}";
+        //    File.AppendAllText(filePath, line+Environment.NewLine);
+        //}
+
+        private async Task SavePetAsync(Pet pet)
         {
             string line = $"{pet.ID},{pet.Name},{pet.Species},{pet.CheckInTime},{pet.isCheckedOut}";
-            File.AppendAllText(filePath, line+Environment.NewLine);
+
+            StorageFile file = await ApplicationData.Current.LocalFolder.CreateFileAsync(
+                "pets.txt",
+                CreationCollisionOption.OpenIfExists);
+
+            await FileIO.AppendTextAsync(file, line + Environment.NewLine);
         }
 
-        private List<Pet> LoadPets()
+        private async void LoadPetsOnStartup()
+        {
+            pets = await LoadPetsAsync();
+            petListView.ItemsSource = pets;
+        }
+
+
+        private async Task<List<Pet>> LoadPetsAsync()
         {
             List<Pet> pets = new List<Pet>();
 
-            if (!File.Exists(filePath))
-                return pets;
-
-            var lines = File.ReadAllLines(filePath);
-            foreach (var line in lines)
+            try
             {
-                var parts = line.Split(',');
+                StorageFile file = await ApplicationData.Current.LocalFolder.GetFileAsync("pets.txt");
+                var lines = await FileIO.ReadLinesAsync(file);
 
-                if (parts.Length >= 5)
+                foreach (var line in lines)
                 {
-                    Pet pet = new Pet(
-                        parts[0],
-                        parts[1],
-                        parts[2],
-                        DateTime.Parse(parts[3]),
-                        bool.Parse(parts[4])
-                    );
+                    var parts = line.Split(',');
 
-                    pets.Add(pet);
+                    if (parts.Length >= 5)
+                    {
+                        Pet pet = new Pet(
+                            parts[0],
+                            parts[1],
+                            parts[2],
+                            DateTime.Parse(parts[3]),
+                            bool.Parse(parts[4])
+                        );
+
+                        pets.Add(pet);
+                    }
                 }
+            }
+            catch (FileNotFoundException)
+            {
+                // File doesn't exist yet — return empty list
             }
 
             return pets;
         }
+
 
         private string GeneratePetId()
         {
@@ -75,7 +102,7 @@ namespace PetUWP
             return $"{nextId.ToString("D8")}";
         }
 
-        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        private async void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             MessageDialog msg;
             string name = txtPetName.Text;
@@ -92,10 +119,10 @@ namespace PetUWP
             Pet newPet = new Pet(id, name, species, DateTime.Now, false);
 
             // Save directly
-            savePet(newPet);
+            await SavePetAsync(newPet);
 
             // Reload pets
-            pets = LoadPets();
+            pets = await LoadPetsAsync();
 
            petListView.ItemsSource = null;
            petListView.ItemsSource = pets;

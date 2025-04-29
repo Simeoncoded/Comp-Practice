@@ -27,5 +27,11 @@ namespace PetLibrary
             CheckInTime = checkInTime;
             isCheckedOut = ischeckedout;
         }
+
+        public override string ToString()
+        {
+            return $"{ID} - {Name} ({Species} {CheckInTime} {isCheckedOut})";
+        }
+
     }
 }
