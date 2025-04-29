@@ -11,7 +11,7 @@
     <Grid >
 
         <TextBox x:Name="txtPetName" HorizontalAlignment="Left" Margin="184,67,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="187" PlaceholderText="Enter Pet Name"/>
-        <Button x:Name="btnAdd" Content="Add Pet" Margin="223,141,0,0" VerticalAlignment="Top" Width="97" Height="34"/>
+        <Button x:Name="btnAdd" Content="Add Pet" Margin="223,141,0,0" VerticalAlignment="Top" Width="97" Height="34" Click="btnAdd_Click"/>
         <ListView x:Name="petListView" Margin="956,31,102,363"/>
         <TextBox x:Name="txtPetSpecie" HorizontalAlignment="Left" Margin="184,104,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="187" PlaceholderText="Enter Pet Specie"/>
     </Grid>

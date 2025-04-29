@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using PetLibrary;
+using Windows.UI.Popups;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -65,5 +66,17 @@ namespace PetUWP
             return pets;
         }
 
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            string name = txtPetName.Text;
+            string species = txtPetSpecie.Text;
+
+            if(name == "" || species == "")
+            {
+               MessageDialog msg = new MessageDialog("Please Fill in all details");
+                msg.ShowAsync();
+                return;
+            }
+        }
     }
 }
