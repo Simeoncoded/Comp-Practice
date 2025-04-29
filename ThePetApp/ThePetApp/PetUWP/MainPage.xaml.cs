@@ -24,9 +24,12 @@ namespace PetUWP
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private List<Pet> pets;
+
         public MainPage()
         {
             this.InitializeComponent();
+            pets = LoadPets();  // Load pets from the file at startup
         }
 
         string filePath = "pets.txt";
@@ -66,17 +69,43 @@ namespace PetUWP
             return pets;
         }
 
+        private string GeneratePetId()
+        {
+            int nextId = pets.Count + 1;
+            return $"{nextId.ToString("D8")}";
+        }
+
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
+            MessageDialog msg;
             string name = txtPetName.Text;
             string species = txtPetSpecie.Text;
 
             if(name == "" || species == "")
             {
-               MessageDialog msg = new MessageDialog("Please Fill in all details");
+               msg = new MessageDialog("Please Fill in all details");
                 msg.ShowAsync();
                 return;
             }
+
+            string id = GeneratePetId();
+            Pet newPet = new Pet(id, name, species, DateTime.Now, false);
+
+            // Save directly
+            savePet(newPet);
+
+            // Reload pets
+            pets = LoadPets();
+
+           petListView.ItemsSource = null;
+           petListView.ItemsSource = pets;
+
+            txtPetName.Text = "";
+            txtPetSpecie.Text = "";
+
+            msg = new MessageDialog("Pet added successfully");
+            msg.ShowAsync();
+            return;
         }
     }
 }
