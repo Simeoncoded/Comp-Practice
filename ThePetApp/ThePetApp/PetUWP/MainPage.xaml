@@ -5,14 +5,28 @@
     xmlns:local="using:PetUWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d">
 
-    <Grid >
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
 
-        <TextBox x:Name="txtPetName" HorizontalAlignment="Left" Margin="184,67,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="187" PlaceholderText="Enter Pet Name"/>
-        <Button x:Name="btnAdd" Content="Add Pet" Margin="223,141,0,0" VerticalAlignment="Top" Width="97" Height="34" Click="btnAdd_Click"/>
-        <ListView x:Name="petListView" Margin="511,67,36,11"/>
-        <TextBox x:Name="txtPetSpecie" HorizontalAlignment="Left" Margin="184,104,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="187" PlaceholderText="Enter Pet Specie"/>
+        <StackPanel Grid.Column="0" Margin="30" VerticalAlignment="Center">
+            <TextBlock Text="Pet Name:" Margin="0,0,0,5"/>
+            <TextBox x:Name="txtPetName" PlaceholderText="Enter name" Margin="0,0,0,15"/>
+
+            <TextBlock Text="Species:" Margin="0,0,0,5"/>
+            <TextBox x:Name="txtPetSpecie" PlaceholderText="Enter species" Margin="0,0,0,15"/>
+
+            <Button x:Name="btnAdd" Content="Add Pet" Click="btnAdd_Click" Margin="0,20,0,0" />
+        </StackPanel>
+
+        <ListView x:Name="petListView"
+                  Grid.Column="1"
+                  Margin="30"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"/>
     </Grid>
 </Page>

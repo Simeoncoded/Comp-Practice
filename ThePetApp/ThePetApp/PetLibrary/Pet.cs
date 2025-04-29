@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage;
 
 namespace PetLibrary
 {
     public class Pet
     {
+        public static string SavePath { get; set; }
         public string ID { get; set; }
 
         public string Name { get; set; }
@@ -31,6 +34,15 @@ namespace PetLibrary
         public override string ToString()
         {
             return $"{ID} - {Name} ({Species} {CheckInTime} {isCheckedOut})";
+        }
+
+        public void Save()
+        {
+            if (string.IsNullOrEmpty(SavePath))
+                throw new InvalidOperationException("Pet.SavePath is not set.");
+
+            string line = $"{ID},{Name},{Species},{CheckInTime},{isCheckedOut}";
+            File.AppendAllText(SavePath, line + Environment.NewLine);
         }
 
     }
