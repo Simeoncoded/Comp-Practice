@@ -36,12 +36,6 @@ namespace PetUWP
 
         string filePath = "pets.txt";
 
-        //private void savePet(Pet pet)
-        //{
-        //    string line = $"{pet.ID},{pet.Name},{pet.Species},{pet.CheckInTime},{pet.isCheckedOut}";
-        //    File.AppendAllText(filePath, line+Environment.NewLine);
-        //}
-
         private async Task SavePetAsync(Pet pet)
         {
             string line = $"{pet.ID},{pet.Name},{pet.Species},{pet.CheckInTime},{pet.isCheckedOut}";
