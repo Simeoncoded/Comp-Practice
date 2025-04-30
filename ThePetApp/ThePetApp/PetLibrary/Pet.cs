@@ -10,7 +10,7 @@ namespace PetLibrary
 {
     public class Pet
     {
-        public static string SavePath { get; set; }
+        public static string FileName = "pets.txt";
         public string ID { get; set; }
 
         public string Name { get; set; }
@@ -36,13 +36,14 @@ namespace PetLibrary
             return $"{ID} - {Name} ({Species} {CheckInTime} {isCheckedOut})";
         }
 
-        public void Save()
+        public async Task SaveAsync()
         {
-            if (string.IsNullOrEmpty(SavePath))
-                throw new InvalidOperationException("Pet.SavePath is not set.");
+            StorageFile file = await ApplicationData.Current.LocalFolder.CreateFileAsync(
+                FileName,
+                CreationCollisionOption.OpenIfExists);
 
             string line = $"{ID},{Name},{Species},{CheckInTime},{isCheckedOut}";
-            File.AppendAllText(SavePath, line + Environment.NewLine);
+            await FileIO.AppendTextAsync(file, line + Environment.NewLine);
         }
 
     }

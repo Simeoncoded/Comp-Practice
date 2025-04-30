@@ -19,8 +19,8 @@ namespace PetUWP
         {
             this.InitializeComponent();
 
-            // Set shared save path for all Pet instances
-            Pet.SavePath =  "pets.txt";
+            //// Set shared save path for all Pet instances
+            //Pet.SavePath =  "pets.txt";
 
             // Load pets initially
             pets = LoadPets();
@@ -33,7 +33,7 @@ namespace PetUWP
             return $"{nextId.ToString("D8")}";
         }
 
-        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        private async void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             MessageDialog msg;
             string name = txtPetName.Text;
@@ -50,7 +50,7 @@ namespace PetUWP
             Pet newPet = new Pet(id, name, species, DateTime.Now, false);
 
             // Save using method from Pet class
-            newPet.Save();
+            await newPet.SaveAsync();
 
             // Reload and display updated list
             pets = LoadPets();
@@ -70,7 +70,7 @@ namespace PetUWP
 
             try
             {
-                string path = Pet.SavePath;
+                string path = Pet.FileName;
 
                 if (File.Exists(path))
                 {
@@ -130,7 +130,7 @@ namespace PetUWP
             pets.Remove(petToRemove);
 
             // Overwrite the pets.txt file
-            File.WriteAllLines(Pet.SavePath, pets.Select(p =>
+            File.WriteAllLines(Pet.FileName, pets.Select(p =>
                 $"{p.ID},{p.Name},{p.Species},{p.CheckInTime},{p.isCheckedOut}"));
 
             // Refresh the list
