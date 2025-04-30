@@ -7,6 +7,7 @@ using PetLibrary;
 using Windows.UI.Popups;
 using Windows.Storage;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace PetUWP
 {
@@ -100,6 +101,46 @@ namespace PetUWP
             }
 
             return loadedPets;
+        }
+
+    
+
+        private void btnRemove_Click(object sender, RoutedEventArgs e)
+        {
+            string idToRemove = txtRemid.Text.Trim();
+
+            MessageDialog msg;
+
+            if (string.IsNullOrWhiteSpace(idToRemove))
+            {
+                msg = new MessageDialog("Please enter a valid Pet ID.");
+                _ = msg.ShowAsync();
+                return;
+            }
+
+            var petToRemove = pets.FirstOrDefault(p => p.ID == idToRemove);
+
+            if (petToRemove == null)
+            {
+                msg = new MessageDialog("Pet not found.");
+                _ = msg.ShowAsync();
+                return;
+            }
+
+            pets.Remove(petToRemove);
+
+            // Overwrite the pets.txt file
+            File.WriteAllLines(Pet.SavePath, pets.Select(p =>
+                $"{p.ID},{p.Name},{p.Species},{p.CheckInTime},{p.isCheckedOut}"));
+
+            // Refresh the list
+            petListView.ItemsSource = null;
+            petListView.ItemsSource = pets;
+
+            txtRemid.Text = "";
+
+            msg = new MessageDialog("Pet removed successfully.");
+            _ = msg.ShowAsync();
         }
     }
 }

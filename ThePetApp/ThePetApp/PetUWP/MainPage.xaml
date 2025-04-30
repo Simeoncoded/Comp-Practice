@@ -13,7 +13,7 @@
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="0" Margin="30" VerticalAlignment="Center">
+        <StackPanel Grid.Column="0" Margin="30,15,30,0" VerticalAlignment="Top">
             <TextBlock Text="Pet Name:" Margin="0,0,0,5"/>
             <TextBox x:Name="txtPetName" PlaceholderText="Enter name" Margin="0,0,0,15"/>
 
@@ -28,5 +28,7 @@
                   Margin="30"
                   HorizontalAlignment="Stretch"
                   VerticalAlignment="Stretch"/>
+        <Button x:Name="btnRemove" Content="Remove" Margin="208,467,0,0" VerticalAlignment="Top" Click="btnRemove_Click" />
+        <TextBox x:Name="txtRemid" HorizontalAlignment="Left" Margin="145,430,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205" PlaceholderText="Enter ID to remove pet"/>
     </Grid>
 </Page>
