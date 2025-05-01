@@ -28,7 +28,8 @@
                   Margin="30"
                   HorizontalAlignment="Stretch"
                   VerticalAlignment="Stretch"/>
-        <Button x:Name="btnRemove" Content="Remove" Margin="208,467,0,0" VerticalAlignment="Top" Click="btnRemove_Click" />
-        <TextBox x:Name="txtRemid" HorizontalAlignment="Left" Margin="145,430,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205" PlaceholderText="Enter ID to remove pet"/>
+        <Button x:Name="btnRemove" Content="Remove" Margin="145,467,0,0" VerticalAlignment="Top" Click="btnRemove_Click" />
+        <TextBox x:Name="txtRemid" HorizontalAlignment="Left" Margin="145,430,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="254" PlaceholderText="Enter ID to remove or checkout pet"/>
+        <Button x:Name="btnCheckout" Content="Checkout" Margin="320,467,0,0" VerticalAlignment="Top" Click="btnCheckout_Click"  />
     </Grid>
 </Page>

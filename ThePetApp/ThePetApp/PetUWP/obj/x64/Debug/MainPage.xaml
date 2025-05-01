@@ -15,12 +15,12 @@
 
         <StackPanel Grid.Column="0" Margin="30,15,30,0" VerticalAlignment="Top">
             <TextBlock Text="Pet Name:" Margin="0,0,0,5"/>
-            <TextBox x:ConnectionId='5' x:Name="txtPetName" PlaceholderText="Enter name" Margin="0,0,0,15"/>
+            <TextBox x:ConnectionId='6' x:Name="txtPetName" PlaceholderText="Enter name" Margin="0,0,0,15"/>
 
             <TextBlock Text="Species:" Margin="0,0,0,5"/>
-            <TextBox x:ConnectionId='6' x:Name="txtPetSpecie" PlaceholderText="Enter species" Margin="0,0,0,15"/>
+            <TextBox x:ConnectionId='7' x:Name="txtPetSpecie" PlaceholderText="Enter species" Margin="0,0,0,15"/>
 
-            <Button x:ConnectionId='7' x:Name="btnAdd" Content="Add Pet"                      Margin="0,20,0,0" />
+            <Button x:ConnectionId='8' x:Name="btnAdd" Content="Add Pet"                      Margin="0,20,0,0" />
         </StackPanel>
 
         <ListView x:ConnectionId='2' x:Name="petListView"
@@ -28,8 +28,9 @@
                   Margin="30"
                   HorizontalAlignment="Stretch"
                   VerticalAlignment="Stretch"/>
-        <Button x:ConnectionId='3' x:Name="btnRemove" Content="Remove" Margin="208,467,0,0" VerticalAlignment="Top"                         />
-        <TextBox x:ConnectionId='4' x:Name="txtRemid" HorizontalAlignment="Left" Margin="145,430,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205" PlaceholderText="Enter ID to remove pet"/>
+        <Button x:ConnectionId='3' x:Name="btnRemove" Content="Remove" Margin="145,467,0,0" VerticalAlignment="Top"                         />
+        <TextBox x:ConnectionId='4' x:Name="txtRemid" HorizontalAlignment="Left" Margin="145,430,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="254" PlaceholderText="Enter ID to remove or checkout pet"/>
+        <Button x:ConnectionId='5' x:Name="btnCheckout" Content="Checkout" Margin="320,467,0,0" VerticalAlignment="Top"                            />
     </Grid>
 </Page>
 

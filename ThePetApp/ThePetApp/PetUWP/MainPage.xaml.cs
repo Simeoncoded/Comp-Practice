@@ -156,5 +156,43 @@ namespace PetUWP
             txtRemid.Text = "";
             await new MessageDialog("Pet removed successfully.").ShowAsync();
         }
+
+        private async void btnCheckout_Click(object sender, RoutedEventArgs e)
+        {
+            string idToCheckout = txtRemid.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(idToCheckout))
+            {
+                MessageDialog mgg = new MessageDialog("Please enter a valid Pet ID.");
+                mgg.ShowAsync();
+                return;
+            }
+
+            var petToCheckout = pets.FirstOrDefault(p => p.ID == idToCheckout);
+
+            if (petToCheckout == null)
+            {
+                MessageDialog mgg = new MessageDialog("Pet not found.");
+                mgg.ShowAsync();
+                return;
+            }
+
+            // Mark the pet as checked out
+            petToCheckout.isCheckedOut = true;
+
+            // Write updated list to file
+            StorageFile file = await ApplicationData.Current.LocalFolder.CreateFileAsync(
+                Pet.FileName,
+                CreationCollisionOption.ReplaceExisting);
+
+            await FileIO.WriteLinesAsync(file, pets.Select(p =>
+                $"{p.ID},{p.Name},{p.Species},{p.CheckInTime},{p.isCheckedOut}"));
+
+            petListView.ItemsSource = null;
+            petListView.ItemsSource = pets;
+
+            txtRemid.Text = "";
+            await new MessageDialog("Pet checkedout successfully.").ShowAsync();
+        }
     }
 }
