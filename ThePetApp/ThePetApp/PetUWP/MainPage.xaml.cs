@@ -29,9 +29,31 @@ namespace PetUWP
 
         private string GeneratePetId()
         {
-            int nextId = pets.Count + 1;
-            return $"{nextId:D8}";
+            if (pets.Count == 0)
+            {
+                return "00000001";
+            }
+            else
+            {
+                int maxId = 0;
+
+                foreach (var pet in pets)
+                {
+                    int number;
+                    if (int.TryParse(pet.ID, out number))
+                    {
+                        if (number > maxId)
+                        {
+                            maxId = number;
+                        }
+                    }
+                }
+
+                int nextId = maxId + 1;
+                return nextId.ToString("D8");
+            }
         }
+
 
         private async void btnAdd_Click(object sender, RoutedEventArgs e)
         {
