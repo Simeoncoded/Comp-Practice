@@ -18,19 +18,19 @@ namespace PetUWP
         public MainPage()
         {
             this.InitializeComponent();
+            _ = LoadAndBindPetsAsync();
+        }
 
-            //// Set shared save path for all Pet instances
-            //Pet.SavePath =  "pets.txt";
-
-            // Load pets initially
-            pets = LoadPets();
+        private async Task LoadAndBindPetsAsync()
+        {
+            pets = await LoadPetsAsync();
             petListView.ItemsSource = pets;
         }
 
         private string GeneratePetId()
         {
             int nextId = pets.Count + 1;
-            return $"{nextId.ToString("D8")}";
+            return $"{nextId:D8}";
         }
 
         private async void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -42,18 +42,16 @@ namespace PetUWP
             if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(species))
             {
                 msg = new MessageDialog("Please fill in all details");
-                _ = msg.ShowAsync();
+                await msg.ShowAsync();
                 return;
             }
 
             string id = GeneratePetId();
             Pet newPet = new Pet(id, name, species, DateTime.Now, false);
 
-            // Save using method from Pet class
-            await newPet.SaveAsync();
+            await newPet.SaveAsync();  // Uses ApplicationData.Current.LocalFolder
 
-            // Reload and display updated list
-            pets = LoadPets();
+            pets = await LoadPetsAsync();
             petListView.ItemsSource = null;
             petListView.ItemsSource = pets;
 
@@ -61,60 +59,54 @@ namespace PetUWP
             txtPetSpecie.Text = "";
 
             msg = new MessageDialog("Pet added successfully");
-            _ = msg.ShowAsync();
+            await msg.ShowAsync();
         }
 
-        private List<Pet> LoadPets()
+        private async Task<List<Pet>> LoadPetsAsync()
         {
             List<Pet> loadedPets = new List<Pet>();
 
             try
             {
-                string path = Pet.FileName;
+                StorageFile file = await ApplicationData.Current.LocalFolder.CreateFileAsync(
+                    Pet.FileName,
+                    CreationCollisionOption.OpenIfExists);
 
-                if (File.Exists(path))
+                var lines = await FileIO.ReadLinesAsync(file);
+
+                foreach (var line in lines)
                 {
-                    var lines = File.ReadAllLines(path);
+                    var parts = line.Split(',');
 
-                    foreach (var line in lines)
+                    if (parts.Length >= 5)
                     {
-                        var parts = line.Split(',');
+                        Pet pet = new Pet(
+                            parts[0],
+                            parts[1],
+                            parts[2],
+                            DateTime.Parse(parts[3]),
+                            bool.Parse(parts[4])
+                        );
 
-                        if (parts.Length >= 5)
-                        {
-                            Pet pet = new Pet(
-                                parts[0],
-                                parts[1],
-                                parts[2],
-                                DateTime.Parse(parts[3]),
-                                bool.Parse(parts[4])
-                            );
-
-                            loadedPets.Add(pet);
-                        }
+                        loadedPets.Add(pet);
                     }
                 }
             }
             catch (Exception ex)
             {
-                _ = new MessageDialog("Error loading pets: " + ex.Message).ShowAsync();
+                await new MessageDialog("Error loading pets: " + ex.Message).ShowAsync();
             }
 
             return loadedPets;
         }
 
-    
-
-        private void btnRemove_Click(object sender, RoutedEventArgs e)
+        private async void btnRemove_Click(object sender, RoutedEventArgs e)
         {
             string idToRemove = txtRemid.Text.Trim();
 
-            MessageDialog msg;
-
             if (string.IsNullOrWhiteSpace(idToRemove))
             {
-                msg = new MessageDialog("Please enter a valid Pet ID.");
-                _ = msg.ShowAsync();
+                await new MessageDialog("Please enter a valid Pet ID.").ShowAsync();
                 return;
             }
 
@@ -122,25 +114,25 @@ namespace PetUWP
 
             if (petToRemove == null)
             {
-                msg = new MessageDialog("Pet not found.");
-                _ = msg.ShowAsync();
+                await new MessageDialog("Pet not found.").ShowAsync();
                 return;
             }
 
             pets.Remove(petToRemove);
 
-            // Overwrite the pets.txt file
-            File.WriteAllLines(Pet.FileName, pets.Select(p =>
+            // Write updated list to file
+            StorageFile file = await ApplicationData.Current.LocalFolder.CreateFileAsync(
+                Pet.FileName,
+                CreationCollisionOption.ReplaceExisting);
+
+            await FileIO.WriteLinesAsync(file, pets.Select(p =>
                 $"{p.ID},{p.Name},{p.Species},{p.CheckInTime},{p.isCheckedOut}"));
 
-            // Refresh the list
             petListView.ItemsSource = null;
             petListView.ItemsSource = pets;
 
             txtRemid.Text = "";
-
-            msg = new MessageDialog("Pet removed successfully.");
-            _ = msg.ShowAsync();
+            await new MessageDialog("Pet removed successfully.").ShowAsync();
         }
     }
 }
