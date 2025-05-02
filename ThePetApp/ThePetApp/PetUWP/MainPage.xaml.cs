@@ -233,7 +233,7 @@ namespace PetUWP
 
             txtUpdateId.Text = "";
             txtNameUpdate.Text = "";
-            txtSpeciesUpdate.Text = "";
+            txtS.Text = "";
 
             await new MessageDialog("Pet updated successfully.").ShowAsync();
         }
