@@ -194,5 +194,48 @@ namespace PetUWP
             txtRemid.Text = "";
             await new MessageDialog("Pet checkedout successfully.").ShowAsync();
         }
+
+        private async void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            string idToUpdate = txtUpdateId.Text.Trim();
+            string newName = txtNameUpdate.Text.Trim();
+            string newSpecies = txtSpeciesUpdate.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(idToUpdate) || string.IsNullOrWhiteSpace(newName) || string.IsNullOrWhiteSpace(newSpecies))
+            {
+                await new MessageDialog("Please fill all fields.").ShowAsync();
+                return;
+            }
+
+            Pet petToUpdate = pets.FirstOrDefault(p => p.ID == idToUpdate);
+
+            if (petToUpdate == null)
+            {
+                await new MessageDialog("Pet not found.").ShowAsync();
+                return;
+            }
+
+            // Update values
+            petToUpdate.Name = newName;
+            petToUpdate.Species = newSpecies;
+
+            // Save updated list to file
+            StorageFile file = await ApplicationData.Current.LocalFolder.CreateFileAsync(
+                Pet.FileName,
+                CreationCollisionOption.ReplaceExisting);
+
+            await FileIO.WriteLinesAsync(file, pets.Select(p =>
+                $"{p.ID},{p.Name},{p.Species},{p.CheckInTime},{p.isCheckedOut}"));
+
+            // Refresh ListView
+            petListView.ItemsSource = null;
+            petListView.ItemsSource = pets;
+
+            txtUpdateId.Text = "";
+            txtNameUpdate.Text = "";
+            txtSpeciesUpdate.Text = "";
+
+            await new MessageDialog("Pet updated successfully.").ShowAsync();
+        }
     }
 }
