@@ -81,9 +81,8 @@ namespace LostandFoundPrac
 
         static void UpdatePet()
         {
-            Console.WriteLine("Enter the Id of the pet you want to update");
-            string idtoupdate = Console.ReadLine();
-
+            Console.WriteLine("Enter the ID of the pet you want to update:");
+            string idToUpdate = Console.ReadLine();
 
             if (!File.Exists(filepath))
             {
@@ -91,7 +90,40 @@ namespace LostandFoundPrac
                 return;
             }
 
+            var lines = File.ReadAllLines(filepath).ToList();
 
+            var petLine = lines.FirstOrDefault(line => line.StartsWith(idToUpdate + ","));
+
+            if (petLine == null)
+            {
+                Console.WriteLine("Pet ID not found.");
+                return;
+            }
+
+            // Split existing line to reuse some data if needed
+            string[] parts = petLine.Split(',');
+
+            Console.WriteLine("Enter new Name:");
+            string newName = Console.ReadLine();
+
+            Console.WriteLine("Enter new Species:");
+            string newSpecies = Console.ReadLine();
+
+            Console.WriteLine("Enter new Status (lost/found):");
+            string newStatusInput = Console.ReadLine().ToLower();
+
+            Status newStatus = newStatusInput == "found" ? Status.found : Status.lost;
+
+            string updatedLine = $"{idToUpdate},{newName},{newSpecies},{newStatus},{DateTime.Today}";
+
+            // Replace the line in the list
+            lines = lines.Select(line =>
+                line.StartsWith(idToUpdate + ",") ? updatedLine : line
+            ).ToList();
+
+            File.WriteAllLines(filepath, lines);
+
+            Console.WriteLine("Pet updated successfully.");
         }
 
         static void ReporFoundPet()
