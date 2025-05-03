@@ -8,6 +8,8 @@ namespace LostandFoundPrac
 {
     internal class Program
     {
+        static List<lfound> lfounds = new List<lfound>();
+        static string filepath = "pets.txt";
         static void Main(string[] args)
         {
         }
