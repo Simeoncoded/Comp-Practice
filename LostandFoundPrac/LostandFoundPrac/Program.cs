@@ -79,6 +79,21 @@ namespace LostandFoundPrac
 
         }
 
+        static void UpdatePet()
+        {
+            Console.WriteLine("Enter the Id of the pet you want to update");
+            string idtoupdate = Console.ReadLine();
+
+
+            if (!File.Exists(filepath))
+            {
+                Console.WriteLine("Animal file not found.");
+                return;
+            }
+
+
+        }
+
         static void ReporFoundPet()
         {
             Console.WriteLine("Enter Name");
