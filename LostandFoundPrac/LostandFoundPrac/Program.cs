@@ -37,7 +37,7 @@ namespace LostandFoundPrac
                 }
                 else if (choice == "U")
                 {
-                   
+                   UpdatePet();
                 }
                 else if (choice == "D")
                 {
