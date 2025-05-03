@@ -62,6 +62,20 @@ namespace LostandFoundPrac
 
         static void ReportLostPet()
         {
+            Console.WriteLine("Enter Name");
+            string name = Console.ReadLine();
+
+            Console.WriteLine("Enter Specie");
+            string specie = Console.ReadLine();
+
+            string newid  = GenId();
+
+            lfound lfound = new lfound(newid,name,specie,Status.lost,DateTime.Today);
+
+            lfounds.Add(lfound);
+            AddAnimaltoFile(lfound);
+
+            Console.WriteLine("Pet reported as lost sucessfully");
 
         }
 
