@@ -65,6 +65,27 @@ namespace LostandFoundPrac
 
         }
 
+        static string GenId()
+        {
+            if(!File.Exists(filepath))
+            {
+                return "00000001";
+            }
+
+            var lines = File.ReadAllLines(filepath);
+
+            if(lines.Length == 0)
+            {
+                return "00000001";
+            }
+
+            var lastline = lines.Last();
+            var lastid = lastline.Split(',')[0];
+
+            int nextid = int.Parse(lastid) + 1;
+            return nextid.ToString("D8");
+        }
+
         public static void AddAnimaltoFile(lfound lfound)
         {
             string line = $"{lfound.id},{lfound.species},{lfound.namae},{lfound.status},{lfound.reporttime.ToShortDateString()}";
