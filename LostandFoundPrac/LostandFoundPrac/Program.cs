@@ -45,7 +45,7 @@ namespace LostandFoundPrac
                 }
                 else if (choice == "V")
                 {
-
+                    DisplayAnimals();
                 }
                 else if (choice == "E")
                 {
