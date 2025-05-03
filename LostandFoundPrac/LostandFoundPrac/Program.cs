@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,6 +58,18 @@ namespace LostandFoundPrac
                 }
 
             }
+        }
+
+        static void ReportLostPet()
+        {
+
+        }
+
+        public static void AddAnimaltoFile(lfound lfound)
+        {
+            string line = $"{lfound.id},{lfound.species},{lfound.namae},{lfound.status},{lfound.reporttime.ToShortDateString()}";
+
+            File.AppendAllText(filepath, line + Environment.NewLine);
         }
     }
 }
