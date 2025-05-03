@@ -30,7 +30,7 @@ namespace LostandFoundPrac
 
                 if (choice == "R")
                 {
-
+                    ReportLostPet();
                 }else if(choice == "F")
                 {
 
@@ -76,6 +76,25 @@ namespace LostandFoundPrac
             AddAnimaltoFile(lfound);
 
             Console.WriteLine("Pet reported as lost sucessfully");
+
+        }
+
+        static void ReporFoundPet()
+        {
+            Console.WriteLine("Enter Name");
+            string name = Console.ReadLine();
+
+            Console.WriteLine("Enter Specie");
+            string specie = Console.ReadLine();
+
+            string newid = GenId();
+
+            lfound lfound = new lfound(newid, name, specie, Status.found, DateTime.Today);
+
+            lfounds.Add(lfound);
+            AddAnimaltoFile(lfound);
+
+            Console.WriteLine("Pet reported as found sucessfully");
 
         }
 
