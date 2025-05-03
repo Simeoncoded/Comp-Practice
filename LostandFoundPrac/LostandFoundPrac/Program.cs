@@ -22,6 +22,40 @@ namespace LostandFoundPrac
                 Console.WriteLine("Press D to remove a pet");
                 Console.WriteLine("Press V to view all pets");
                 Console.WriteLine("Press E to exit app");
+
+                Console.Write("Your Choice: ");
+
+                string choice = Console.ReadLine().ToUpper();
+
+                if (choice == "R")
+                {
+
+                }else if(choice == "F")
+                {
+
+                }
+                else if (choice == "U")
+                {
+                   
+                }
+                else if (choice == "D")
+                {
+
+                }
+                else if (choice == "V")
+                {
+
+                }
+                else if (choice == "E")
+                {
+                    exit = true;
+                    Console.WriteLine("Goodbye!");
+                }
+                else
+                {
+                    Console.WriteLine("Wrong choice, try again!!");
+                }
+
             }
         }
     }
