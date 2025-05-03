@@ -33,7 +33,7 @@ namespace LostandFoundPrac
                     ReportLostPet();
                 }else if(choice == "F")
                 {
-
+                    ReporFoundPet();
                 }
                 else if (choice == "U")
                 {
@@ -96,6 +96,29 @@ namespace LostandFoundPrac
 
             Console.WriteLine("Pet reported as found sucessfully");
 
+        }
+
+        static void DisplayAnimals()
+        {
+            if (File.Exists(filepath))
+            {
+                string text = File.ReadAllText(filepath);
+
+                if(text == "")
+                {
+                    Console.WriteLine("No animals found");
+                }
+                else
+                {
+                    Console.WriteLine("Animals in the system:\n");
+                    Console.WriteLine(text);
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("Animal file not found");
+            }
         }
 
         static string GenId()
