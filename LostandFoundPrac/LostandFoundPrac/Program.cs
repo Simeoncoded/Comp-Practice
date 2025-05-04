@@ -126,6 +126,34 @@ namespace LostandFoundPrac
             Console.WriteLine("Pet updated successfully.");
         }
 
+        static void removepet()
+        {
+            Console.WriteLine("Enter the ID of the pet you want to remove:");
+            string idToUpdate = Console.ReadLine();
+
+            if (!File.Exists(filepath))
+            {
+                Console.WriteLine("Animal file not found.");
+                return;
+            }
+
+            var lines = File.ReadAllLines(filepath).ToList();
+
+            var petLine = lines.FirstOrDefault(line => line.StartsWith(idToUpdate + ","));
+
+            if (petLine == null)
+            {
+                Console.WriteLine("Pet ID not found.");
+                return;
+            }
+
+            lines.Remove(petLine);
+
+            File.WriteAllLines(filepath, lines);
+
+            Console.WriteLine("Pet removed successfully");
+        }
+
         static void ReporFoundPet()
         {
             Console.WriteLine("Enter Name");
