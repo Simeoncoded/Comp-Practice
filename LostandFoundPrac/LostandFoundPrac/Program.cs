@@ -199,7 +199,7 @@ namespace LostandFoundPrac
 
         static void ArchivePet()
         {
-            Console.WriteLine("Enter the ID of the pet you want to remove:");
+            Console.WriteLine("Enter the ID of the pet you want to archive:");
             string idToUpdate = Console.ReadLine();
 
             if (!File.Exists(filepath))
@@ -208,26 +208,43 @@ namespace LostandFoundPrac
                 return;
             }
 
+            // Load all lines from the file
             var lines = File.ReadAllLines(filepath).ToList();
 
-            var petLine = lines.FirstOrDefault(line => line.StartsWith(idToUpdate + ","));
+            // Find the line to update
+            var index = lines.FindIndex(line => line.StartsWith(idToUpdate + ","));
 
-            if (petLine == null)
+            if (index == -1)
             {
                 Console.WriteLine("Pet ID not found.");
                 return;
             }
 
-            var pet = lfounds.FirstOrDefault(a => a.id == idToUpdate && !a.isArchived);
+            // Parse the line and update the archive status
+            var parts = lines[index].Split(',');
 
-            if(pet == null)
+            if (parts.Length < 5 || parts[4].ToLower() == "true")
             {
-                Console.WriteLine("Animal not found or already archived");
+                Console.WriteLine("Pet not found or already archived.");
                 return;
             }
-            pet.isArchived = true;
 
-            Console.WriteLine("Pet archived succesfully");
+            parts[4] = "true"; // Set archived to true
+
+            // Reconstruct the line
+            lines[index] = string.Join(",", parts);
+
+            // Write the updated list back to the file
+            File.WriteAllLines(filepath, lines);
+
+            // Update in-memory list as well (if needed)
+            var pet = lfounds.FirstOrDefault(p => p.id == idToUpdate);
+            if (pet != null)
+            {
+                pet.isArchived = true;
+            }
+
+            Console.WriteLine("Pet archived successfully.");
         }
 
         static string GenId()
