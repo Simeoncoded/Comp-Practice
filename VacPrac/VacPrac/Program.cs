@@ -10,7 +10,7 @@ namespace VacPrac
    
     internal class Program
     {
-        static List<Vac> vac = new List<Vac>();
+        static List<Vac> vacs = new List<Vac>();
 
         static string filepath = "vac.txt";
         static void Main(string[] args)
@@ -29,7 +29,7 @@ namespace VacPrac
 
                 if (choice == "A")
                 {
-
+                    AddAnimal();
                 }else if(choice == "M")
                 {
 
@@ -72,7 +72,22 @@ namespace VacPrac
 
     static void AddAnimal()
         {
-            Console.WriteLine();
+            Console.WriteLine("Enter Name: ");
+            string Name = Console.ReadLine();
+
+            Console.WriteLine("Enter Specie: ");
+            string Specie = Console.ReadLine();
+
+            string newId = GenId();
+
+            Vac vac = new Vac(newId, Name,Specie,false,DateTime.MinValue);
+
+            vacs.Add(vac);
+            AddAnimalToFile(vac);
+
+            Console.WriteLine("Animal added successfully");
+
+
         }
 
         public static void AddAnimalToFile(Vac vac)
