@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,6 +47,14 @@ namespace VacPrac
                 }
 
             }
+
+            
+        }
+        public static void AddAnimalToFile(Vac vac)
+        {
+            string line = $"{vac.ID},{vac.Name},{vac.Species},{vac.isVaccinated},{vac.ValDate}";
+
+            File.AppendAllText(filepath, line + Environment.NewLine);
         }
     }
 }
