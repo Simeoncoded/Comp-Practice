@@ -15,27 +15,29 @@ namespace VacPrac
         static string filepath = "vac.txt";
         static void Main(string[] args)
         {
-            Console.WriteLine("\n Welcome to Vac app \n");
-            Console.WriteLine("\nPress A to add new Animal\n");
-            Console.WriteLine("\nPress M to mark animal as vaccinated\n");
-            Console.WriteLine("\nPress V to view All Animal\n");
-            Console.WriteLine("\nPress E to exit app\n");
-            Console.Write("Your Choice: ");
-
+         
             bool exit = false;
 
-            while (!exit) { 
-               string choice = Console.ReadLine().ToUpper();
+            while (!exit) {
+                Console.WriteLine("\n Welcome to Vac app \n");
+                Console.WriteLine("\nPress A to add new Animal\n");
+                Console.WriteLine("\nPress M to mark animal as vaccinated\n");
+                Console.WriteLine("\nPress V to view All Animal\n");
+                Console.WriteLine("\nPress E to exit app\n");
+                Console.Write("Your Choice: ");
+
+
+                string choice = Console.ReadLine().ToUpper();
 
                 if (choice == "A")
                 {
                     AddAnimal();
                 }else if(choice == "M")
                 {
-
+                    MarkPet();
                 }else if(choice == "V")
                 {
-
+                    ViewAnimals();
                 }else if(choice == "E")
                 {
                     exit = true;
