@@ -199,7 +199,35 @@ namespace LostandFoundPrac
 
         static void ArchivePet()
         {
+            Console.WriteLine("Enter the ID of the pet you want to remove:");
+            string idToUpdate = Console.ReadLine();
 
+            if (!File.Exists(filepath))
+            {
+                Console.WriteLine("Animal file not found.");
+                return;
+            }
+
+            var lines = File.ReadAllLines(filepath).ToList();
+
+            var petLine = lines.FirstOrDefault(line => line.StartsWith(idToUpdate + ","));
+
+            if (petLine == null)
+            {
+                Console.WriteLine("Pet ID not found.");
+                return;
+            }
+
+            var pet = lfounds.FirstOrDefault(a => a.id == idToUpdate && !a.isArchived);
+
+            if(pet == null)
+            {
+                Console.WriteLine("Animal not found or already archived");
+                return;
+            }
+            pet.isArchived = true;
+
+            Console.WriteLine("Pet archived succesfully");
         }
 
         static string GenId()
