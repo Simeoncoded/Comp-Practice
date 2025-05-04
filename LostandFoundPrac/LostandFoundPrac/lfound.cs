@@ -22,6 +22,8 @@ namespace LostandFoundPrac
 
         public DateTime reporttime { get; set; }
 
+        public bool isArchived { get; set; }
+
 
         public lfound(string id, string namae, string species, Status status, DateTime reporttime)
         {
@@ -30,6 +32,16 @@ namespace LostandFoundPrac
             this.species = species;
             this.status = status;
             this.reporttime = reporttime;
+        }
+
+        public lfound(string id, string namae, string species, Status status, DateTime reporttime, bool isarchived)
+        {
+            this.id = id;
+            this.namae = namae;
+            this.species = species;
+            this.status = status;
+            this.reporttime = reporttime;
+            this.isArchived = isarchived;   
         }
     }
 }

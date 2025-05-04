@@ -22,6 +22,7 @@ namespace LostandFoundPrac
                 Console.WriteLine("Press U to update a pet");
                 Console.WriteLine("Press D to remove a pet");
                 Console.WriteLine("Press V to view all pets");
+                Console.WriteLine("Press A to archive a pet");
                 Console.WriteLine("Press E to exit app");
 
                 Console.Write("Your Choice: ");
@@ -41,7 +42,7 @@ namespace LostandFoundPrac
                 }
                 else if (choice == "D")
                 {
-
+                    removepet();
                 }
                 else if (choice == "V")
                 {
@@ -194,6 +195,11 @@ namespace LostandFoundPrac
             {
                 Console.WriteLine("Animal file not found");
             }
+        }
+
+        static void ArchivePet()
+        {
+
         }
 
         static string GenId()
