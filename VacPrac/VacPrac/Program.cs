@@ -86,8 +86,29 @@ namespace VacPrac
             AddAnimalToFile(vac);
 
             Console.WriteLine("Animal added successfully");
+        }
 
+        static void ViewAnimals()
+        {
+            if (File.Exists(filepath))
+            {
+                string text = File.ReadAllText(filepath);
 
+                if (text == "")
+                {
+                    Console.WriteLine("No animals found");
+                }
+                else
+                {
+                    Console.WriteLine("Animals in the system:\n");
+                    Console.WriteLine(text);
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("Animal file not found");
+            }
         }
 
         public static void AddAnimalToFile(Vac vac)
