@@ -1,0 +1,7 @@
+C:\Users\User\Desktop\CompPractice\VacPrac\VacPrac\bin\Debug\VacPrac.exe.config
+C:\Users\User\Desktop\CompPractice\VacPrac\VacPrac\bin\Debug\VacPrac.exe
+C:\Users\User\Desktop\CompPractice\VacPrac\VacPrac\bin\Debug\VacPrac.pdb
+C:\Users\User\Desktop\CompPractice\VacPrac\VacPrac\obj\Debug\VacPrac.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\CompPractice\VacPrac\VacPrac\obj\Debug\VacPrac.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\CompPractice\VacPrac\VacPrac\obj\Debug\VacPrac.exe
+C:\Users\User\Desktop\CompPractice\VacPrac\VacPrac\obj\Debug\VacPrac.pdb

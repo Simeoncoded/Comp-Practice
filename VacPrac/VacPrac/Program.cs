@@ -14,11 +14,12 @@ namespace VacPrac
         static string filepath = "vac.txt";
         static void Main(string[] args)
         {
-            Console.Write("\n Welcome to Vac app\n");
-            Console.Write("Press A to add new Animal");
-            Console.Write("Press M to mark animal as vaccinated");
-            Console.Write("Press V to view All Animal");
-            Console.Write("Press E to exit app");
+            Console.WriteLine("\n Welcome to Vac app \n");
+            Console.WriteLine("\nPress A to add new Animal\n");
+            Console.WriteLine("\nPress M to mark animal as vaccinated\n");
+            Console.WriteLine("\nPress V to view All Animal\n");
+            Console.WriteLine("\nPress E to exit app\n");
+            Console.Write("Your Choice: ");
 
             bool exit = false;
 
