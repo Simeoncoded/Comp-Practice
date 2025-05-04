@@ -90,7 +90,52 @@ namespace VacPrac
 
         static void MarkPet()
         {
-            Console.WriteLine("Enter the id of the pet you want to mark as vaccinated");
+            Console.WriteLine("Enter the ID of the pet you want to mark as vaccinated:");
+            string idToUpdate = Console.ReadLine();
+
+            if (!File.Exists(filepath))
+            {
+                Console.WriteLine("Animal file not found.");
+                return;
+            }
+
+            // Load all lines from the file
+            var lines = File.ReadAllLines(filepath).ToList();
+
+            // Find the line to update
+            var index = lines.FindIndex(line => line.StartsWith(idToUpdate + ","));
+
+            if (index == -1)
+            {
+                Console.WriteLine("Animal ID not found.");
+                return;
+            }
+
+            // Parse the line and update the archive status
+            var parts = lines[index].Split(',');
+
+            if (parts.Length < 5 || parts[3].ToLower() == "true")
+            {
+                Console.WriteLine("Animal not found or already archived.");
+                return;
+            }
+
+            parts[3] = "true"; // Set archived to true
+
+            // Reconstruct the line
+            lines[index] = string.Join(",", parts);
+
+            // Write the updated list back to the file
+            File.WriteAllLines(filepath, lines);
+
+            // Update in-memory list as well (if needed)
+            var pet = vacs.FirstOrDefault(p => p.ID == idToUpdate);
+            if (pet != null)
+            {
+                pet.isVaccinated = true;
+            }
+
+            Console.WriteLine("Animal marked as vaccinated successfully.");
         }
 
         static void ViewAnimals()
