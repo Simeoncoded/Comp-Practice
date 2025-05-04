@@ -45,11 +45,36 @@ namespace VacPrac
                 {
                     Console.WriteLine("Invalid choice");
                 }
+            }    
+        }
 
+        static string GenId()
+        {
+            if(!File.Exists(filepath))
+            {
+                return "00000001";
             }
 
-            
+            var lines = File.ReadAllLines(filepath);
+
+            if(lines.Length == 0 )
+            {
+                return "00000001";
+            }
+
+            var lastline = lines.Last();
+            var lastid = lastline.Split(',')[0];
+
+            int nextid = int.Parse(lastid) + 1;
+            return nextid.ToString("D8");
+
         }
+
+    static void AddAnimal()
+        {
+            Console.WriteLine();
+        }
+
         public static void AddAnimalToFile(Vac vac)
         {
             string line = $"{vac.ID},{vac.Name},{vac.Species},{vac.isVaccinated},{vac.ValDate}";
