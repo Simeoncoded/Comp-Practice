@@ -88,6 +88,11 @@ namespace VacPrac
             Console.WriteLine("Animal added successfully");
         }
 
+        static void MarkPet()
+        {
+            Console.WriteLine("Enter the id of the pet you want to mark as vaccinated");
+        }
+
         static void ViewAnimals()
         {
             if (File.Exists(filepath))
