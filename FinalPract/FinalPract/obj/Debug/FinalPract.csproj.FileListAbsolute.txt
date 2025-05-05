@@ -1,0 +1,7 @@
+C:\Users\User\Desktop\CompPractice\FinalPract\FinalPract\bin\Debug\FinalPract.exe.config
+C:\Users\User\Desktop\CompPractice\FinalPract\FinalPract\bin\Debug\FinalPract.exe
+C:\Users\User\Desktop\CompPractice\FinalPract\FinalPract\bin\Debug\FinalPract.pdb
+C:\Users\User\Desktop\CompPractice\FinalPract\FinalPract\obj\Debug\FinalPract.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\CompPractice\FinalPract\FinalPract\obj\Debug\FinalPract.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\CompPractice\FinalPract\FinalPract\obj\Debug\FinalPract.exe
+C:\Users\User\Desktop\CompPractice\FinalPract\FinalPract\obj\Debug\FinalPract.pdb
