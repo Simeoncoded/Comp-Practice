@@ -74,6 +74,8 @@ namespace FinalPract
             }
         }
 
+        public bool isArchived {  get; set; }
+
         public Final(string id, string species, char gender, bool isinjured, string breed, string color, DateTime DOB, DateTime ArrivalDate,
                     string identification, Vaccination vaccination, Status status, bool isspayedorneutered)
         {

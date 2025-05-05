@@ -23,6 +23,7 @@ namespace FinalPract
                 Console.WriteLine("Please enter D to delete an Animal by ID");
                 Console.WriteLine("Please enter V to view all Animals");
                 Console.WriteLine("Please Enter S to search for an Animal");
+                Console.WriteLine("Pres VA to view Active Animals");
                 Console.WriteLine("Please enter E to exit App");
                 Console.Write("Your Choice: ");
                 string choice = Console.ReadLine().ToUpper();
@@ -41,6 +42,9 @@ namespace FinalPract
                 }else if(choice == "S")
                 {
                     SearchAnimals();
+                }else if(choice == "VA")
+                {
+                    ViewActiveAnimals();
                 }
                 else if(choice == "E")
                 {
@@ -241,6 +245,46 @@ namespace FinalPract
            
         }
 
+        static void ViewActiveAnimals()
+        {
+            try
+            {
+                if (!File.Exists(filepath))
+                {
+                    Console.WriteLine("File not found");
+                    return;
+                }
+
+                var lines = File.ReadAllLines(filepath);
+
+                var activeAnimals = lines
+                    .Where(line => !string.IsNullOrWhiteSpace(line))
+                    .Where(line =>
+                    {
+                        var parts = line.Split(',');
+                        return parts.Length > 10 && parts[10].Trim().ToLower() != "archived";
+                    });
+
+                if (!activeAnimals.Any())
+                {
+                    Console.WriteLine("No active (non-archived) animals found in the system.");
+                }
+                else
+                {
+                    Console.WriteLine("Active Animals in the System:\n");
+                    foreach (var animal in activeAnimals)
+                    {
+                        Console.WriteLine(animal);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+
         static void SearchAnimals()
         {
             Console.WriteLine("Search Animal by ID, Species, Breed");
@@ -276,6 +320,43 @@ namespace FinalPract
             {
                 Console.WriteLine("No matching animals found");
             }
+        }
+
+        static void ArchiveAnimals()
+        {
+            Console.WriteLine("Please Enter the ID of the Animal you want to archive");
+            string idToArchive = Console.ReadLine();
+
+            if (!File.Exists(filepath))
+            {
+                Console.WriteLine("File Not Found");
+                return;
+            }
+
+            var lines = File.ReadAllLines(filepath);
+            bool found = lines.Any(line => line.Split(',')[0] == idToArchive);
+
+            if (!found)
+            {
+                Console.WriteLine("Animal ID not found.");
+                return;
+            }
+
+            var updatedLines = lines.Select(line =>
+            {
+                var parts = line.Split(',');
+
+                if (parts[0] == idToArchive)
+                {
+                    parts[10] = "Archived"; // assuming Status is the 11th item
+                    return string.Join(",", parts);
+                }
+
+                return line;
+            }).ToList();
+
+            File.WriteAllLines(filepath, updatedLines);
+            Console.WriteLine("Animal archived successfully.");
         }
 
         static string GenID()
