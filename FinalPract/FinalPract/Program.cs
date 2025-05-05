@@ -105,6 +105,77 @@ namespace FinalPract
         {
             Console.WriteLine("Please Enter the ID of the Animal you want to update");
             string idToUpdate = Console.ReadLine();
+
+            if (!File.Exists(filepath))
+            {
+                Console.WriteLine("File Not Found");
+                return;
+            }
+
+            var lines = File.ReadAllLines(filepath).ToList();
+            var index = lines.FindIndex(line => line.StartsWith(idToUpdate + ","));
+
+            if (index == -1)
+            {
+                Console.WriteLine("Animal with the specified ID not found.");
+                return;
+            }
+
+            // Re-use AddNewAnimal logic to create a new updated object
+            Console.WriteLine("\nEnter updated details for the animal...\n");
+
+            try
+            {
+                Console.Write("Enter Species: ");
+                string species = Console.ReadLine();
+
+                Console.Write("Enter Gender (M/F): ");
+                char gender = Console.ReadLine().ToUpper()[0];
+
+                Console.Write("Is the animal injured? (yes/no): ");
+                bool isInjured = Console.ReadLine().Trim().ToLower() == "yes";
+
+                Console.Write("Enter Breed: ");
+                string breed = Console.ReadLine();
+
+                Console.Write("Enter Color: ");
+                string color = Console.ReadLine();
+
+                Console.Write("Enter Date of Birth (yyyy-mm-dd): ");
+                DateTime dob = DateTime.Parse(Console.ReadLine());
+
+                Console.Write("Enter Arrival Date (yyyy-mm-dd): ");
+                DateTime arrivalDate = DateTime.Parse(Console.ReadLine());
+
+                Console.Write("Enter Identification: ");
+                string identification = Console.ReadLine();
+
+                Console.Write("Vaccination Status (UptoDate, Late, Unknown): ");
+                Vaccination vaccination = (Vaccination)Enum.Parse(typeof(Vaccination), Console.ReadLine(), true);
+
+                Console.Write("Status (Available, Adopted, Archived): ");
+                Status status = (Status)Enum.Parse(typeof(Status), Console.ReadLine(), true);
+
+                Console.Write("Spayed/Neutered? (yes/no): ");
+                bool isSpayed = Console.ReadLine().Trim().ToLower() == "yes";
+
+                Final updatedAnimal = new Final(
+                    idToUpdate, species, gender, isInjured, breed, color, dob, arrivalDate,
+                    identification, vaccination, status, isSpayed
+                );
+
+                string updatedLine = $"{updatedAnimal.Id},{updatedAnimal.Species},{updatedAnimal.Gender},{updatedAnimal.IsInjured},{updatedAnimal.Breed},{updatedAnimal.Color},{updatedAnimal.DOB},{updatedAnimal.ArrivalDate},{updatedAnimal.Identification}," +
+                    $"{updatedAnimal.Vaccination},{updatedAnimal.Status},{updatedAnimal.IsSpayedOrNeutered},{updatedAnimal.AdoptionFee}";
+
+                lines[index] = updatedLine;
+                File.WriteAllLines(filepath, lines);
+                Console.WriteLine("Animal updated successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error during update: " + ex.Message);
+            }
+
         }
 
         static void DeleteAnimals()
