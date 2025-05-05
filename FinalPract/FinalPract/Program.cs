@@ -236,6 +236,43 @@ namespace FinalPract
            
         }
 
+        static void SearchAnimals()
+        {
+            Console.WriteLine("Search Animal by ID, Species, Breed");
+            string search = Console.ReadLine().Trim().ToUpper();
+
+            if (!File.Exists(filepath))
+            {
+                Console.WriteLine("File Not Found");
+            }
+
+            var lines = File.ReadAllLines(filepath);
+
+            bool found = false;
+
+            foreach(var line in lines)
+            {
+                var parts = line.Split(',');
+
+                if(parts.Length >= 6)
+                {
+                    string id = parts[0].ToUpper();
+                    string species = parts[1].ToUpper();
+                    string breed = parts[4].ToUpper();
+
+                    if (id.Contains(search) || species.Contains(search) || breed.Contains(search))
+                    {
+                        Console.WriteLine(line);
+                        found = true;
+                    }
+                }
+            }
+            if (!found)
+            {
+                Console.WriteLine("No matching animals found");
+            }
+        }
+
         static string GenID()
         {
             if (!File.Exists(filepath))
