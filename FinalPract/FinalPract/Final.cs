@@ -31,6 +31,10 @@ namespace FinalPract
                 {
                     throw new ArgumentException("ID must be exactly 8");
                 }
+                else
+                {
+                    id = value;
+                }
             }
         }
 
