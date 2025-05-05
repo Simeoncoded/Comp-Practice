@@ -1,0 +1,7 @@
+C:\Users\User\Desktop\CompPractice\LostandFoundPrac\LostandFoundPrac\bin\Release\LostandFoundPrac.exe.config
+C:\Users\User\Desktop\CompPractice\LostandFoundPrac\LostandFoundPrac\bin\Release\LostandFoundPrac.exe
+C:\Users\User\Desktop\CompPractice\LostandFoundPrac\LostandFoundPrac\bin\Release\LostandFoundPrac.pdb
+C:\Users\User\Desktop\CompPractice\LostandFoundPrac\LostandFoundPrac\obj\Release\LostandFoundPrac.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\CompPractice\LostandFoundPrac\LostandFoundPrac\obj\Release\LostandFoundPrac.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\CompPractice\LostandFoundPrac\LostandFoundPrac\obj\Release\LostandFoundPrac.exe
+C:\Users\User\Desktop\CompPractice\LostandFoundPrac\LostandFoundPrac\obj\Release\LostandFoundPrac.pdb
