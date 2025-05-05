@@ -103,11 +103,34 @@ namespace FinalPract
 
         static void UpdateAnimals()
         {
-
+            Console.WriteLine("Please Enter the ID of the Animal you want to update");
+            string idToUpdate = Console.ReadLine();
         }
 
         static void DeleteAnimals()
         {
+            Console.WriteLine("Please Enter the ID of the Animal you want to delete");
+            string idToDelete = Console.ReadLine();
+
+            if (!File.Exists(filepath))
+            {
+                Console.WriteLine("File Not Found");
+                return;
+            }
+
+            var lines = File.ReadAllLines(filepath).ToList();
+            int removedCount = lines.RemoveAll(line => line.StartsWith(idToDelete + ","));
+
+            if (removedCount > 0)
+            {
+                File.WriteAllLines(filepath, lines);
+                Console.WriteLine("Animal deleted successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Animal with the specified ID not found.");
+            }
+
 
         }
 
