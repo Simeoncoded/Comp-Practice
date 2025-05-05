@@ -74,6 +74,24 @@ namespace FinalPract
             }
         }
 
+        public Final(string id, string species, char gender, bool isinjured, string breed, string color, DateTime DOB, DateTime ArrivalDate,
+                    string identification, Vaccination vaccination, Status status, bool isspayedorneutered, double adoptionfee)
+        {
+            this.id = id;
+            this.Species = species;
+            this.Gender = gender;
+            this.IsInjured = isinjured;
+            this.Breed = breed;
+            this.Color = color;
+            this.DOB = DOB;
+            this.ArrivalDate= ArrivalDate;
+            this.Identification = identification;
+            this.Vaccination = vaccination;
+            this.Status = status;
+            this.IsSpayedOrNeutered = isspayedorneutered;
+            this.AdoptionFee = adoptionfee;
+        }
+
 
 
 
