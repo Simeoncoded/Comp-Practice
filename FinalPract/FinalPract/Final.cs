@@ -1,0 +1,62 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace FinalPract
+{
+   public enum Vaccination
+    {
+        UptoDate,
+        Late,
+        Unknown
+    }
+
+    public enum Status
+    {
+        Available,
+        Adopted,
+        Archived
+    }
+    public class Final
+    {
+        private string id;
+
+        public string Id { get { return id; }
+            set
+            {
+                if(value.Length != 8)
+                {
+                    throw new ArgumentException("ID must be exactly 8");
+                }
+            }
+        }
+
+        public string Species { get; set; }
+
+        public char Gender { get; set; }
+
+        public bool IsInjured {  get; set; } = false;
+
+        public string Breed {  get; set; }
+
+        public string Color {  get; set; }
+
+        public DateTime DOB {  get; set; }
+
+        public DateTime ArrivalDate { get; set; }
+
+        public string Identification {  get; set; }
+
+        public Vaccination Vaccination { get; set; }
+
+        public Status Status { get; set; }  
+
+        public double AdoptionFee {  get; set; }
+
+
+
+    }
+}
