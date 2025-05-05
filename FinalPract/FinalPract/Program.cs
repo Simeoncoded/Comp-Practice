@@ -31,9 +31,9 @@ namespace FinalPract
                     AddNewAnimal();
                 }else if(choice == "U")
                 {
-                    
+                    UpdateAnimals();
                 }else if(choice == "D") { 
-
+                    DeleteAnimals();
                 }else if(choice == "V")
                 {
                     ViewAnimals();
@@ -99,6 +99,16 @@ namespace FinalPract
                 Console.WriteLine(ex.Message.ToString());
             }
          
+        }
+
+        static void UpdateAnimals()
+        {
+
+        }
+
+        static void DeleteAnimals()
+        {
+
         }
 
         static void ViewAnimals()
