@@ -75,7 +75,7 @@ namespace FinalPract
         }
 
         public Final(string id, string species, char gender, bool isinjured, string breed, string color, DateTime DOB, DateTime ArrivalDate,
-                    string identification, Vaccination vaccination, Status status, bool isspayedorneutered, double adoptionfee)
+                    string identification, Vaccination vaccination, Status status, bool isspayedorneutered)
         {
             this.id = id;
             this.Species = species;
