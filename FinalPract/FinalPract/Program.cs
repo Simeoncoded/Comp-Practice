@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,6 +48,12 @@ namespace FinalPract
             }
         }
 
+        public static void AddAnimalToFile(Final final)
+        {
+            string line = $"{final.Id},{final.Species},{final.Gender},{final.IsInjured},{final.Breed},{final.Color},{final.DOB},{final.ArrivalDate},{final.Identification}," +
+                $"{final.Vaccination},{final.Status},{final.IsSpayedOrNeutered},{final.AdoptionFee}";
 
+            File.AppendAllText(filepath, line + Environment.NewLine);
+        }
     }
 }
