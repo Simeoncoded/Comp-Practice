@@ -13,8 +13,6 @@ namespace FinalPract
         static string filepath = "finals.txt";
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to the Animals App");
-
             bool exit = false;
 
             while(!exit)
@@ -30,7 +28,7 @@ namespace FinalPract
 
                 if(choice == "A")
                 {
-
+                    AddNewAnimal();
                 }else if(choice == "U")
                 {
                     
