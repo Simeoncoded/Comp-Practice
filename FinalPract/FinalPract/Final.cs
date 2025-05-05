@@ -89,7 +89,6 @@ namespace FinalPract
             this.Vaccination = vaccination;
             this.Status = status;
             this.IsSpayedOrNeutered = isspayedorneutered;
-            this.AdoptionFee = adoptionfee;
         }
 
 
