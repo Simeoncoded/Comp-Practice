@@ -92,6 +92,23 @@ namespace FinalPract
         }
 
 
+        public override string ToString()
+        {
+            return $"ID: {Id}\n" +
+                   $"Species: {Species}\n" +
+                   $"Gender: {Gender}\n" +
+                   $"Spayed/Neutered: {(IsSpayedOrNeutered ? "Yes" : "No")}\n" +
+                   $"Breed: {Breed}\n" +
+                   $"Color: {Color}\n" +
+                   $"DOB: {DOB:yyyy-MM-dd}\n" +
+                   $"Arrival: {ArrivalDate:yyyy-MM-dd}\n" +
+                   $"Vaccination: {Vaccination}\n" +
+                   $"Injured: {(IsInjured ? "Yes" : "No")}\n" +
+                   $"Identification: {Identification}\n" +
+                   $"Status: {Status}\n" +
+                   $"Adoption Fee: ${AdoptionFee}\n";
+        }
+
 
 
     }
