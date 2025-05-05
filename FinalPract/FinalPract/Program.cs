@@ -36,7 +36,7 @@ namespace FinalPract
 
                 }else if(choice == "V")
                 {
-
+                    ViewAnimals();
                 }else if(choice == "E")
                 {
                     exit = true;
@@ -99,6 +99,37 @@ namespace FinalPract
                 Console.WriteLine(ex.Message.ToString());
             }
          
+        }
+
+        static void ViewAnimals()
+        {
+            try
+            {
+                if (File.Exists(filepath))
+                {
+                    string text = File.ReadAllText(filepath);
+
+                    if (text == "")
+                    {
+                        Console.WriteLine("No Animals found in the file");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Animals in the System\n");
+                        Console.WriteLine(text);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("File not found");
+                }
+
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine(ex.Message.ToString());
+            }
+           
         }
 
         static string GenID()
