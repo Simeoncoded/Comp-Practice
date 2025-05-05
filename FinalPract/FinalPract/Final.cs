@@ -56,9 +56,24 @@ namespace FinalPract
 
         public Vaccination Vaccination { get; set; }
 
-        public Status Status { get; set; }  
+        public Status Status { get; set; }
 
-        public double AdoptionFee {  get; set; }
+        public bool IsSpayedOrNeutered { get; set; }
+
+
+        public double AdoptionFee
+        {
+            get
+            {
+                var age = DateTime.Now.Year - DOB.Year;
+                if (DOB.Date > DateTime.Now.AddYears(-age)) age--;
+
+                if (age < 1) return 300;
+                else if (age > 10) return 100;
+                else return 200;
+            }
+        }
+
 
 
 
