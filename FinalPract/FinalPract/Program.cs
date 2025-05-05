@@ -22,6 +22,7 @@ namespace FinalPract
                 Console.WriteLine("Please enter U to update an Animal by ID");
                 Console.WriteLine("Please enter D to delete an Animal by ID");
                 Console.WriteLine("Please enter V to view all Animals");
+                Console.WriteLine("Please Enter S to search for an Animal");
                 Console.WriteLine("Please enter E to exit App");
                 Console.Write("Your Choice: ");
                 string choice = Console.ReadLine().ToUpper();
@@ -37,7 +38,11 @@ namespace FinalPract
                 }else if(choice == "V")
                 {
                     ViewAnimals();
-                }else if(choice == "E")
+                }else if(choice == "S")
+                {
+                    SearchAnimals();
+                }
+                else if(choice == "E")
                 {
                     exit = true;
                     return;
